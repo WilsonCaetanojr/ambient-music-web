@@ -42,3 +42,7 @@
   background-color: #141416;
   color: white;
 }
+
+.container-vol .button-vol:hover {
+  background-color: #3f3f3f;
+}

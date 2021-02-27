@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Dialog } from "@material-ui/core";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
 import ReactPlayer from "react-player/lazy";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import ClearIcon from "@material-ui/icons/Clear";
+import PauseIcon from "@material-ui/icons/Pause";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import "./player.css";
 
 const Player = ({ setOpenModal, openModal, albumSelect }) => {
-  const [volume, setVolume] = useState(0.5);
   const [time, setTime] = useState(0);
+  const [playing, setPlaying] = useState(true);
 
   const teste = e => {
     const played = e.played * 100;
@@ -64,18 +66,11 @@ const Player = ({ setOpenModal, openModal, albumSelect }) => {
           <h3>{albumSelect ? albumSelect.title : ""}</h3>
 
           <ButtonGroup disableElevation variant="contained">
-            <Button
-              className="button-vol"
-              onClick={() => setVolume(volume + 0.1)}
-            >
-              +
+            <Button className="button-vol">{"<"}</Button>
+            <Button className="button-vol" onClick={() => setPlaying(!playing)}>
+              {playing ? <PauseIcon /> : <PlayArrowIcon />}
             </Button>
-            <Button
-              className="button-vol"
-              onClick={() => setVolume(volume - 0.1)}
-            >
-              -
-            </Button>
+            <Button className="button-vol">{">"}</Button>
           </ButtonGroup>
         </div>
 
@@ -89,8 +84,7 @@ const Player = ({ setOpenModal, openModal, albumSelect }) => {
               playerVars: { showinfo: 1 }
             }
           }}
-          volume={volume}
-          playing={true}
+          playing={playing}
           onProgress={teste}
         />
 
