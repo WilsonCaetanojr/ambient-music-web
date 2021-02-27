@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import CardMusic from "../../components/cardMusic/CardMusic";
+import "./homePage.css";
 
 const HomePage = () => {
   const [albums, setAlbums] = useState([
@@ -12,9 +13,9 @@ const HomePage = () => {
     <>
       <Navbar />
       <Sidebar />
-      <h1 style={{ marginTop: 60, marginLeft: 15 }}></h1>
-
-      <CardMusic albums={albums} />
+      <div className="container-home">
+        <CardMusic albums={albums} />
+      </div>
     </>
   );
 };
