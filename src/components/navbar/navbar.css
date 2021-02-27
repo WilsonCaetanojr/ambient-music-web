@@ -3,7 +3,7 @@
   position: fixed;
   width: 100%;
   top: 0px;
-  z-index: 9999;
+  z-index: 1300;
 }
 
 .labelAvatar {
@@ -13,12 +13,23 @@
   font-weight: 100;
 }
 
-/* .menuIcon {
-  display: none !important;
-} */
-/* 
-@media (max-width: 800px) {
-  .menuIcon {
-    display: flex !important;
-  }
-} */
+.app-bar {
+  background-color: #202024 !important;
+  height: 70px;
+}
+
+.logo-nav {
+  width: 50%;
+  max-width: 300px;
+}
+
+.avatar {
+  background-color: #5b4699 !important;
+  width: 45px !important;
+  height: 45px !important;
+  border: solid 2px white;
+}
+
+.nav-menu-avartar {
+  margin-top: 50px;
+}
