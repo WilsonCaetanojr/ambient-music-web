@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import HomePage from "./pages/homePage/homePage";
+import HomePage from "./pages/homePage/HomePage";
 
 const Routes = () => (
   <BrowserRouter>
