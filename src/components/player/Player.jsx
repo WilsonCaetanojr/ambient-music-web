@@ -3,9 +3,12 @@ import { Dialog } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
 import ReactPlayer from "react-player/lazy";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Button from "@material-ui/core/Button";
+import ClearIcon from "@material-ui/icons/Clear";
+import "./player.css";
 
-const ModalPlayer = ({ setOpenModal, openModal }) => {
-  const [play, setPlay] = useState(false);
+const Player = ({ setOpenModal, openModal, albumSelect }) => {
   const [volume, setVolume] = useState(0.5);
   const [time, setTime] = useState(0);
 
@@ -49,19 +52,33 @@ const ModalPlayer = ({ setOpenModal, openModal }) => {
 
   return (
     <Dialog open={openModal} disableBackdropClick={true}>
-      <div style={{ width: "90%", height: "auto", padding: 10 }}>
-        <button style={{ margin: 10 }} onClick={() => setOpenModal(false)}>
-          SAIR
-        </button>
-        <button style={{ margin: 10 }} onClick={() => setPlay(!play)}>
-          {play ? "STOP" : "PLAY"}
-        </button>
-        <button style={{ margin: 10 }} onClick={() => setVolume(volume + 0.1)}>
-          +
-        </button>
-        <button style={{ margin: 10 }} onClick={() => setVolume(volume - 0.1)}>
-          -
-        </button>
+      <div className="container-player">
+        <div className="container-close">
+          <ClearIcon
+            className="button-close"
+            onClick={() => setOpenModal(false)}
+          />
+        </div>
+
+        <div className="container-vol">
+          <h3>{albumSelect ? albumSelect.title : ""}</h3>
+
+          <ButtonGroup disableElevation variant="contained">
+            <Button
+              className="button-vol"
+              onClick={() => setVolume(volume + 0.1)}
+            >
+              +
+            </Button>
+            <Button
+              className="button-vol"
+              onClick={() => setVolume(volume - 0.1)}
+            >
+              -
+            </Button>
+          </ButtonGroup>
+        </div>
+
         <ReactPlayer
           className="react-player"
           url="https://youtu.be/bkG-Ucl36zA"
@@ -70,13 +87,10 @@ const ModalPlayer = ({ setOpenModal, openModal }) => {
           config={{
             youtube: {
               playerVars: { showinfo: 1 }
-            },
-            facebook: {
-              appId: "12345"
             }
           }}
           volume={volume}
-          playing={play}
+          playing={true}
           onProgress={teste}
         />
 
@@ -89,4 +103,4 @@ const ModalPlayer = ({ setOpenModal, openModal }) => {
     </Dialog>
   );
 };
-export default ModalPlayer;
+export default Player;
