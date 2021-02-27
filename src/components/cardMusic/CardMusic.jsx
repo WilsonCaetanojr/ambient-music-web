@@ -1,6 +1,7 @@
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { useState } from "react";
 import Player from "../player/Player";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import "./cardMusic.css";
 
 export default ({ albums }) => {
@@ -30,7 +31,6 @@ export default ({ albums }) => {
                   <img
                     src={iten.img || "./default.png"}
                     alt={`logo-${index}`}
-                    style={{ width: 132 }}
                   />
                 </div>
                 <div className="description-card">
@@ -52,6 +52,24 @@ export default ({ albums }) => {
               </ul>
             </div>
           ))}
+
+          <div className="card">
+            <div className="description">
+              <AddCircleOutlineIcon className="icon-add-card" />
+
+              <div className="description-card"></div>
+            </div>
+            <ul className="sci">
+              <li>
+                <h3
+                  className="new-album-text"
+                  // onClick={() => handlePlay(iten)}
+                >
+                  NOVO ÁLBUM
+                </h3>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
     </>

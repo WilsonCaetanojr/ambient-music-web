@@ -131,3 +131,26 @@ section::after {
 .icon-play:hover {
   color: white;
 }
+
+.new-album-text {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin: 20px 0 10px;
+  line-height: 1.1em;
+}
+
+.icon-add-card {
+  width: 180px !important;
+  height: 180px !important;
+  color: rgba(105, 105, 105, 0.424);
+  cursor: pointer;
+}
+
+.icon-add-card:hover {
+  color: white;
+  transition: color 0.7s;
+}
