@@ -1,0 +1,31 @@
+.container-close {
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.container-close .button-close {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.container-close .button-close:hover {
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: #141416;
+  color: #ff004f;
+}
+
+.color-save-button {
+  margin-top: 15px !important;
+  margin-bottom: 10px;
+  background-color: #7357b4 !important;
+  color: white !important;
+}
+
+.color-save-button:hover {
+  background-color: #5228b4 !important;
+}
