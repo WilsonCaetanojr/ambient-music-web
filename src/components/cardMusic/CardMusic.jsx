@@ -31,7 +31,7 @@ export default ({ albums }) => {
               <div className="description">
                 <div className="img">
                   <img
-                    src={iten.img || "./default.png"}
+                    src={iten.img || "./images/default.png"}
                     alt={`logo-${index}`}
                   />
                 </div>
