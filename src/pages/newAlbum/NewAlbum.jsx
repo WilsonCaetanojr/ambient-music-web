@@ -77,12 +77,8 @@ const NewAlbum = () => {
                   />
                 </FormControl>
 
-                <Button
-                  id="button-save"
-                  type="submit"
-                  className="btn btn-info btn-block"
-                >
-                  Inserir
+                <Button variant="contained" className="color-save-button">
+                  Salvar
                 </Button>
               </div>
             </div>
