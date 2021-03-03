@@ -55,8 +55,8 @@ export default function PermanentDrawerLeft() {
 
         <List>
           {[{ label: "Novo Álbum", link: "newAlbum" }].map((iten, index) => (
-            <Link to={iten.link} className="container-link">
-              <ListItem button key={index}>
+            <Link to={iten.link} className="container-link" key={index}>
+              <ListItem button>
                 <ListItemIcon>
                   <MailIcon />
                 </ListItemIcon>
