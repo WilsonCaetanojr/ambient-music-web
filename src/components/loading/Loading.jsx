@@ -15,7 +15,7 @@ const Loading = ({ loading = false }) => {
   return (
     <Backdrop className={classes.backdrop} open={loading}>
       <div className="container-loading">
-        <img src="./loading.gif" />
+        <img src="./images/loading.gif" />
       </div>
     </Backdrop>
   );

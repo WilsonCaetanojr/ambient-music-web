@@ -32,6 +32,12 @@
   cursor: pointer;
 }
 
-.nav-menu-avartar {
-  margin-top: 50px;
+.nav-menu-list {
+  margin-top: 54px;
+}
+
+.icon-menu-list-side {
+  margin-right: 10px;
+  color: black !important;
+  width: 20px;
 }

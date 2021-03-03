@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useHistory} from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles";
-import SidebarContext from "../../context/sidebarContext";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -21,16 +21,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MenuAppBar() {
+  const {push} = useHistory();
   const classes = useStyles();
-  const [sidebar, setSidebar] = useContext(SidebarContext);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorAvatar, setAnchorAvatar] = React.useState(null);
+  const [anchorSide, setAnchorSide] = React.useState(null);
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
+  const handleClickAvatar = event => {
+    setAnchorAvatar(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClickSide = event => {
+    setAnchorSide(event.currentTarget);
+  };
+
+  const handleCloseAvatar = () => {
+    setAnchorAvatar(null);
+  };
+
+  const handleCloseSide = () => {
+    setAnchorSide(null);
   };
 
   return (
@@ -42,11 +51,24 @@ export default function MenuAppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={() => setSidebar({ open: !sidebar.open })}
+            onClick={handleClickSide}
           >
             <MenuIcon className="menuIcon" />
           </IconButton>
-          <img src="./logoNav.png" className="logo-nav"></img>
+
+          <Menu
+              id="simple-menu"
+              className="nav-menu-list"
+              anchorEl={anchorSide}
+              keepMounted
+              open={Boolean(anchorSide)}
+              onClose={handleCloseSide}
+            >
+              <MenuItem onClick={()=> push("newAlbum")}><img src="./icons/create.svg" className="icon-menu-list-side"/> Novo álbum</MenuItem>
+              <MenuItem onClick={handleCloseSide}><img src="./icons/edit.svg" className="icon-menu-list-side"/> Editar álbum</MenuItem>
+            </Menu>
+
+          <img src="./images/logoNav.png" className="logo-nav"></img>
           <Typography variant="h6" className={classes.title}></Typography>
 
           <div>
@@ -54,7 +76,7 @@ export default function MenuAppBar() {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleClick}
+              onClick={handleClickAvatar}
               color="inherit"
             >
               <Avatar
@@ -72,14 +94,14 @@ export default function MenuAppBar() {
 
             <Menu
               id="simple-menu"
-              className="nav-menu-avartar"
-              anchorEl={anchorEl}
+              className="nav-menu-list"
+              anchorEl={anchorAvatar}
               keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+              open={Boolean(anchorAvatar)}
+              onClose={handleCloseAvatar}
             >
-              <MenuItem onClick={handleClose}>Minha conta</MenuItem>
-              <MenuItem onClick={handleClose}>Sair</MenuItem>
+              <MenuItem onClick={handleCloseAvatar}><img src="./icons/user.svg" className="icon-menu-list-side"/> Minha conta</MenuItem>
+              <MenuItem onClick={handleCloseAvatar}><img src="./icons/logout.svg" className="icon-menu-list-side"/> Sair</MenuItem>
             </Menu>
           </div>
         </Toolbar>
