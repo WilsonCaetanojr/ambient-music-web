@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -53,13 +54,15 @@ export default function PermanentDrawerLeft() {
         <div className={classes.toolbar} />
 
         <List>
-          {["Opção 1", "Opção 2", "Opção 3", "Opção 4"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {[{ label: "Novo Álbum", link: "newAlbum" }].map((iten, index) => (
+            <Link to={iten.link} className="container-link">
+              <ListItem button key={index}>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary={iten.label} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
