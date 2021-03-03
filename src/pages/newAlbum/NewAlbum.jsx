@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
-import Sidebar from "../../components/sidebar/Sidebar";
 import "./newAlbum.css";
 import {
   Input,
@@ -46,16 +45,17 @@ const NewAlbum = () => {
     <>
       <div className="container-home">
         <Navbar />
-        <Sidebar />
 
         <form onSubmit={handleSubmit}>
           {/* {loading && <ModalLoading loading={loading} />} */}
           <div className="containerFormUser">
             <div className="wrapper fadeInDown">
               <div id="formContent">
-                <ArrowBackIcon className="iconGoBack" onClick={goBack} />
-
-                <label className="title">Novo álbum</label>
+                
+                <div className="container-title">
+                  <ArrowBackIcon className="iconGoBack" onClick={goBack} />
+                  <label className="title">Novo álbum</label>
+                </div>
 
                 <FormControl className="formControl" id="controlUser">
                   <InputLabel>Nome</InputLabel>

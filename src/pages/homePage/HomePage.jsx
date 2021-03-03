@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
-import Sidebar from "../../components/sidebar/Sidebar";
 import CardMusic from "../../components/cardMusic/CardMusic";
 import Loading from "../../components/loading/Loading";
 import "./homePage.css";
@@ -20,7 +19,6 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-      <Sidebar />
       <div className="container-home">
         <Loading loading={loading} />
         <CardMusic albums={albums} />
