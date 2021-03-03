@@ -1,13 +1,13 @@
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Player from "../player/Player";
-import NewAlbum from "../newAlbum/NewAlbum";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import "./cardMusic.css";
 
 export default ({ albums }) => {
+  const { push } = useHistory();
   const [openPlayer, setOpenPlayer] = useState(false);
-  const [openNewAlbum, setOpenNewAlbum] = useState(false);
   const [albumSelect, setAlbumSelect] = useState({});
 
   const handlePlay = iten => {
@@ -23,9 +23,6 @@ export default ({ albums }) => {
           setOpenModal={setOpenPlayer}
           openModal={openPlayer}
         />
-      )}
-      {openNewAlbum && (
-        <NewAlbum setOpenModal={setOpenNewAlbum} openModal={openNewAlbum} />
       )}
       <section>
         <div className="container">
@@ -62,7 +59,7 @@ export default ({ albums }) => {
             <div className="description">
               <AddCircleOutlineIcon
                 className="icon-add-card"
-                onClick={() => setOpenNewAlbum(true)}
+                onClick={() => push("newAlbum")}
               />
 
               <div className="description-card"></div>
