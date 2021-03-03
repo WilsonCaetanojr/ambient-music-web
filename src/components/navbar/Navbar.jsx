@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,15 +13,15 @@ import "./navbar.css";
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 export default function MenuAppBar() {
-  const {push} = useHistory();
+  const { push } = useHistory();
   const classes = useStyles();
   const [anchorAvatar, setAnchorAvatar] = React.useState(null);
   const [anchorSide, setAnchorSide] = React.useState(null);
@@ -57,16 +57,22 @@ export default function MenuAppBar() {
           </IconButton>
 
           <Menu
-              id="simple-menu"
-              className="nav-menu-list"
-              anchorEl={anchorSide}
-              keepMounted
-              open={Boolean(anchorSide)}
-              onClose={handleCloseSide}
-            >
-              <MenuItem onClick={()=> push("newAlbum")}><img src="./icons/create.svg" className="icon-menu-list-side"/> Novo álbum</MenuItem>
-              <MenuItem onClick={handleCloseSide}><img src="./icons/edit.svg" className="icon-menu-list-side"/> Editar álbum</MenuItem>
-            </Menu>
+            id="simple-menu"
+            className="nav-menu-list"
+            anchorEl={anchorSide}
+            keepMounted
+            open={Boolean(anchorSide)}
+            onClose={handleCloseSide}
+          >
+            <MenuItem onClick={() => push("newAlbum")}>
+              <img src="./icons/create.svg" className="icon-menu-list-side" />{" "}
+              Novo álbum
+            </MenuItem>
+            <MenuItem onClick={() => push("editAlbum")}>
+              <img src="./icons/edit.svg" className="icon-menu-list-side" />{" "}
+              Editar álbum
+            </MenuItem>
+          </Menu>
 
           <img src="./images/logoNav.png" className="logo-nav"></img>
           <Typography variant="h6" className={classes.title}></Typography>
@@ -100,8 +106,14 @@ export default function MenuAppBar() {
               open={Boolean(anchorAvatar)}
               onClose={handleCloseAvatar}
             >
-              <MenuItem onClick={handleCloseAvatar}><img src="./icons/user.svg" className="icon-menu-list-side"/> Minha conta</MenuItem>
-              <MenuItem onClick={handleCloseAvatar}><img src="./icons/logout.svg" className="icon-menu-list-side"/> Sair</MenuItem>
+              <MenuItem onClick={handleCloseAvatar}>
+                <img src="./icons/user.svg" className="icon-menu-list-side" />{" "}
+                Minha conta
+              </MenuItem>
+              <MenuItem onClick={handleCloseAvatar}>
+                <img src="./icons/logout.svg" className="icon-menu-list-side" />{" "}
+                Sair
+              </MenuItem>
             </Menu>
           </div>
         </Toolbar>

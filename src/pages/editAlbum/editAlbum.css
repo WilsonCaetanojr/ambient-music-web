@@ -1,0 +1,12 @@
+.preview-img {
+    margin-left: 10px;
+    width: 50px;
+    border-radius: 10px;
+}
+
+.row-container-edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
