@@ -1,4 +1,4 @@
-import { useState, cloneElement } from "react";
+import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./editAlbum.css";
 import {
@@ -12,7 +12,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemAvatar,
+  ListItemAvatar
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router-dom";
@@ -22,22 +22,13 @@ import "./editAlbum.css";
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
-  },
+    minWidth: 120
+  }
 }));
-
-function generate(element) {
-  return [0, 1, 2].map(value =>
-    cloneElement(element, {
-      key: value,
-    })
-  );
-}
 
 const EditAlbum = () => {
   const { goBack } = useHistory();
   const classes = useStyles();
-  const [dense, setDense] = useState(false);
   const [album, setAlbum] = useState(null);
 
   const handleSubmit = async e => {};
@@ -46,7 +37,6 @@ const EditAlbum = () => {
     <>
       <div className="container-home">
         <Navbar />
-
         <form onSubmit={handleSubmit}>
           {/* {loading && <ModalLoading loading={loading} />} */}
           <div className="containerFormUser">
@@ -75,20 +65,21 @@ const EditAlbum = () => {
                       <MenuItem value={20}>Ex2</MenuItem>
                       <MenuItem value={30}>Ex3</MenuItem>
                     </Select>
-                    {/* <FormHelperText>Some important helper text</FormHelperText> */}
                   </FormControl>
-                  <img
-                    src="./images/interrogation.png"
-                    className="preview-img"
-                  />
+                  {album && (
+                    <img
+                      src="./images/interrogation.png"
+                      className="preview-img"
+                    />
+                  )}
                 </div>
                 {album && (
                   <div className="container-edit">
                     <Grid item xs={12} md={12}>
                       <div className={classes.demo}>
-                        <List dense={dense}>
-                          {generate(
-                            <ListItem>
+                        <List>
+                          {[0, 1, 2].map(value => (
+                            <ListItem className="music-iten">
                               <ListItemAvatar>
                                 <img
                                   src="./images/noteMusic.png"
@@ -97,7 +88,11 @@ const EditAlbum = () => {
                               </ListItemAvatar>
                               <ListItemText primary="Músicas" />
                               <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete">
+                                <IconButton
+                                  edge="end"
+                                  aria-label="delete"
+                                  className="delete-music"
+                                >
                                   <img
                                     src="./icons/delete.svg"
                                     style={{ width: 18 }}
@@ -105,7 +100,7 @@ const EditAlbum = () => {
                                 </IconButton>
                               </ListItemSecondaryAction>
                             </ListItem>
-                          )}
+                          ))}
                         </List>
                       </div>
                     </Grid>
