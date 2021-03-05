@@ -50,6 +50,15 @@
   justify-content: center;
   width: 30%;
 }
+.criar-conta {
+  display: flex;
+  justify-content: flex-end !important;
+  height: 40px;
+  width: 100% !important;
+}
+.fonte-criar {
+  color: #696969;
+}
 
 @media (max-width: 1080px) {
   .container-login {
@@ -65,6 +74,9 @@
 
   .input-login {
     margin-bottom: 8% !important;
+  }
+  .container-img {
+    margin-top: 45px;
   }
 }
 
