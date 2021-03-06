@@ -1,30 +1,18 @@
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./newAlbum.css";
-import {
-  Input,
-  IconButton,
-  InputLabel,
-  FormControl,
-  TextField,
-  MenuItem,
-  Button
-} from "@material-ui/core";
+import { Input, InputLabel, FormControl, Button } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router-dom";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import DeleteIcon from "@material-ui/icons/Delete";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import useStyle from "../../styles/useStyles/button";
 
 const NewAlbum = () => {
   const { goBack } = useHistory();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [screenAccess, setScreenAccess] = useState(0);
-  const [active, setActive] = useState(true);
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState("");
+  const classes = useStyle();
 
   const handleSelectImages = e => {
     if (!e.target.files[0]) return;
@@ -51,7 +39,6 @@ const NewAlbum = () => {
           <div className="containerFormUser">
             <div className="wrapper fadeInDown">
               <div id="formContent">
-                
                 <div className="container-title">
                   <ArrowBackIcon className="iconGoBack" onClick={goBack} />
                   <label className="title">Novo álbum</label>
@@ -77,9 +64,11 @@ const NewAlbum = () => {
                   />
                 </FormControl>
 
-                <Button variant="contained" className="color-save-button">
-                  Salvar
-                </Button>
+                <div className="container-button">
+                  <Button variant="contained" className={classes.root}>
+                    Salvar
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

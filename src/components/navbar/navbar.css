@@ -22,6 +22,13 @@
 .logo-nav {
   width: 50%;
   max-width: 300px;
+  cursor: pointer;
+  transition: padding 0.4s;
+  padding: 10px;
+}
+
+.logo-nav:hover {
+  padding: 0px;
 }
 
 .avatar {

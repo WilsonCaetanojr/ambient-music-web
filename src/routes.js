@@ -9,7 +9,7 @@ import Register from "./pages/Register/Register";
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/homepage" component={HomePage}></Route>
+      <Route path="/homePage" component={HomePage}></Route>
 
       <Route path="/newAlbum" component={NewAlbum}></Route>
       <Route path="/editAlbum" component={EditAlbum}></Route>
@@ -17,7 +17,7 @@ const Routes = () => (
       <Route path="/login" component={Login}></Route>
       <Route path="/register" component={Register}></Route>
 
-      <Redirect to="/homepage" />
+      <Redirect to="/homePage" />
     </Switch>
   </BrowserRouter>
 );

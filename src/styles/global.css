@@ -19,17 +19,6 @@
   color: #ff004f;
 }
 
-.color-save-button {
-  margin-top: 15px !important;
-  margin-bottom: 10px;
-  background-color: #7357b4 !important;
-  color: white !important;
-}
-
-.color-save-button:hover {
-  background-color: #5228b4 !important;
-}
-
 /* ----------------------------------------- */
 
 .wrapper {

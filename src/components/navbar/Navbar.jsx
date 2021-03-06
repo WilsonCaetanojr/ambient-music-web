@@ -65,16 +65,20 @@ export default function MenuAppBar() {
             onClose={handleCloseSide}
           >
             <MenuItem onClick={() => push("newAlbum")}>
-              <img src="./icons/create.svg" className="icon-menu-list-side" />{" "}
+              <img src="./icons/create.svg" className="icon-menu-list-side" />
               Novo álbum
             </MenuItem>
             <MenuItem onClick={() => push("editAlbum")}>
-              <img src="./icons/edit.svg" className="icon-menu-list-side" />{" "}
+              <img src="./icons/edit.svg" className="icon-menu-list-side" />
               Editar álbum
             </MenuItem>
           </Menu>
 
-          <img src="./images/logoNav.png" className="logo-nav"></img>
+          <img
+            src="./images/logoNav.png"
+            className="logo-nav"
+            onClick={() => push("homePage")}
+          />
           <Typography variant="h6" className={classes.title}></Typography>
 
           <div>
@@ -107,11 +111,11 @@ export default function MenuAppBar() {
               onClose={handleCloseAvatar}
             >
               <MenuItem onClick={handleCloseAvatar}>
-                <img src="./icons/user.svg" className="icon-menu-list-side" />{" "}
+                <img src="./icons/user.svg" className="icon-menu-list-side" />
                 Minha conta
               </MenuItem>
               <MenuItem onClick={() => push("login")}>
-                <img src="./icons/logout.svg" className="icon-menu-list-side" />{" "}
+                <img src="./icons/logout.svg" className="icon-menu-list-side" />
                 Sair
               </MenuItem>
             </Menu>

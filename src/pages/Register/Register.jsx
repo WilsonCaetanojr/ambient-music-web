@@ -13,21 +13,7 @@ import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import isEmail from "../../utils/isEmail";
-
-const useStyle = makeStyles(theme => ({
-  root: {
-    background: "linear-gradient(45deg, #ab6bfe 30%, #5a8bf6 90%)",
-    border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
-    height: 48,
-    padding: "0 30px",
-    "&:hover": {
-      background: "linear-gradient(45deg, #8245d3 30%, #5a8bf6 90%)"
-    }
-  }
-}));
+import useStyle from "../../styles/useStyles/button";
 
 const Login = () => {
   const [password, setPassword] = useState("");
