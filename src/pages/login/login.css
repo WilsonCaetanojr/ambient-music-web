@@ -16,17 +16,17 @@
   flex-wrap: wrap;
 }
 
-.container-input {
+.container-inputs {
   height: 30%;
   width: 90%;
 }
 
-.input-login {
+.input-email {
   width: 100% !important;
   margin-bottom: 15px !important;
 }
 
-.input-senha {
+.input-password {
   width: 100% !important;
 }
 
@@ -50,14 +50,24 @@
   justify-content: center;
   width: 30%;
 }
-.criar-conta {
+
+.create-account {
+  margin-top: 18px;
   display: flex;
   justify-content: flex-end !important;
-  height: 40px;
   width: 100% !important;
+  color: #696969 !important;
 }
-.fonte-criar {
-  color: #696969;
+
+.link-create-account {
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: font-size 0.4s;
+}
+
+.link-create-account:hover {
+  color: #00c4cc;
+  font-size: 15px;
 }
 
 @media (max-width: 1080px) {
@@ -72,7 +82,7 @@
     margin-top: 10%;
   }
 
-  .input-login {
+  .input-email {
     margin-bottom: 8% !important;
   }
   .container-img {

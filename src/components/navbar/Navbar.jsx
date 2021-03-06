@@ -13,11 +13,11 @@ import "./navbar.css";
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }));
 
 export default function MenuAppBar() {
@@ -110,7 +110,7 @@ export default function MenuAppBar() {
                 <img src="./icons/user.svg" className="icon-menu-list-side" />{" "}
                 Minha conta
               </MenuItem>
-              <MenuItem onClick={handleCloseAvatar}>
+              <MenuItem onClick={() => push("login")}>
                 <img src="./icons/logout.svg" className="icon-menu-list-side" />{" "}
                 Sair
               </MenuItem>
