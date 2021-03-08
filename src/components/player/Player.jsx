@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Dialog } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
@@ -8,11 +8,13 @@ import Button from "@material-ui/core/Button";
 import ClearIcon from "@material-ui/icons/Clear";
 import PauseIcon from "@material-ui/icons/Pause";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import PlayerContext from "../../contex/Player";
 import "./player.css";
 
-const Player = ({ setOpenModal, openModal, albumSelect }) => {
+const Player = () => {
   const [time, setTime] = useState(0);
   const [playing, setPlaying] = useState(true);
+  const [playerContext, setPlayerContext] = useContext(PlayerContext);
 
   const teste = e => {
     const played = e.played * 100;
@@ -22,10 +24,16 @@ const Player = ({ setOpenModal, openModal, albumSelect }) => {
     setTime(played);
   };
 
+  const closeModal = () => {
+    const copyContex = { ...playerContext };
+    copyContex.openModal = false;
+    setPlayerContext(copyContex);
+  };
+
   const PrettoSlider = withStyles({
     root: {
       color: "#8257e6",
-      height: 8
+      height: 8,
     },
     thumb: {
       height: 24,
@@ -35,35 +43,32 @@ const Player = ({ setOpenModal, openModal, albumSelect }) => {
       marginTop: -8,
       marginLeft: -12,
       "&:focus, &:hover, &$active": {
-        boxShadow: "inherit"
-      }
+        boxShadow: "inherit",
+      },
     },
     active: {},
     valueLabel: {
-      left: "calc(-50% + 4px)"
+      left: "calc(-50% + 4px)",
     },
     track: {
       height: 8,
-      borderRadius: 4
+      borderRadius: 4,
     },
     rail: {
       height: 8,
-      borderRadius: 4
-    }
+      borderRadius: 4,
+    },
   })(Slider);
 
   return (
-    <Dialog open={openModal} disableBackdropClick={true}>
+    <Dialog open={playerContext.openModal} disableBackdropClick={true}>
       <div className="container-player">
         <div className="container-close">
-          <ClearIcon
-            className="button-close"
-            onClick={() => setOpenModal(false)}
-          />
+          <ClearIcon className="button-close" onClick={closeModal} />
         </div>
 
         <div className="container-vol">
-          <h3>{albumSelect ? albumSelect.title : ""}</h3>
+          <h3>{playerContext.title ? playerContext.title : ""}</h3>
 
           <ButtonGroup disableElevation variant="contained">
             <Button className="button-vol">{"<"}</Button>
@@ -76,13 +81,13 @@ const Player = ({ setOpenModal, openModal, albumSelect }) => {
 
         <ReactPlayer
           className="react-player"
-          url="https://youtu.be/bkG-Ucl36zA"
+          url={playerContext.url ? playerContext.url : ""}
           width="100%"
           height="100%"
           config={{
             youtube: {
-              playerVars: { showinfo: 1 }
-            }
+              playerVars: { showinfo: 1 },
+            },
           }}
           playing={playing}
           onProgress={teste}

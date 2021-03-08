@@ -3,14 +3,27 @@
 }
 
 .float-action {
-  position: absolute !important;
+  position: fixed !important;
   bottom: 5px !important;
   right: 5px !important;
   background: black !important;
-  color: white !important;
   transition: background 0.4s !important;
+  z-index: 1301 !important;
+  transition: background 0.7s !important;
 }
 
-.float-action:hover {
-  background-color: rgb(80, 80, 80) !important;
+.float-action:hover{
+  padding: 10px !important;
+  background: #00c4cc !important;
+}
+
+.float-action-icon{
+  width: 35px !important;
+  height: 35px !important;
+  color: white;
+}
+
+.img-recording {
+  width: 56px; 
+  border-radius: 50%
 }
