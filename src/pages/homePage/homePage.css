@@ -1,3 +1,16 @@
 .container-home {
   margin-top: 100px;
 }
+
+.float-action {
+  position: absolute !important;
+  bottom: 5px !important;
+  right: 5px !important;
+  background: black !important;
+  color: white !important;
+  transition: background 0.4s !important;
+}
+
+.float-action:hover {
+  background-color: rgb(80, 80, 80) !important;
+}
