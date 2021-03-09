@@ -9,13 +9,6 @@ import notify from "../../utils/notify";
 import PlayerContext from "../../contex/Player";
 import "./homePage.css";
 
-// Configuration recognition
-window.SpeechRecognition =
-  window.webkitSpeechRecognition || window.SpeechRecognition;
-const recognition = new window.SpeechRecognition();
-recognition.lang = "pt-BR";
-recognition.continuous = true;
-
 const HomePage = () => {
   const [albums, setAlbums] = useState([
     {
@@ -47,43 +40,38 @@ const HomePage = () => {
   const handleRecord = () => {
     if (isRecording === true) return;
 
-    try {
-      setIsRecording(true);
+    setIsRecording(true);
 
-      window.SpeechRecognition =
-        window.webkitSpeechRecognition || window.SpeechRecognition;
-      var recognition = new window.SpeechRecognition();
-      recognition.lang = "pt-BR";
-      recognition.continuous = true;
-      recognition.onresult = event => {
-        let speechToText = event.results[event.resultIndex][0].transcript;
+    window.SpeechRecognition =
+      window.webkitSpeechRecognition || window.SpeechRecognition;
+    var recognition = new window.SpeechRecognition();
+    recognition.lang = "pt-BR";
+    recognition.continuous = true;
+    recognition.onresult = event => {
+      let speechToText = event.results[event.resultIndex][0].transcript;
 
-        if (speechToText) {
-          speechToText = speechToText[0].toUpperCase() + speechToText.substr(1);
+      if (speechToText) {
+        speechToText = speechToText[0].toUpperCase() + speechToText.substr(1);
 
-          const album = albums.find(
-            a => a.title.toLowerCase() === speechToText.toLowerCase()
-          );
-          notify(speechToText, true, "info");
+        const album = albums.find(
+          a => a.title.toLowerCase() === speechToText.toLowerCase()
+        );
+        notify(speechToText, true, "info");
 
-          if (album) {
-            let obj = { openModal: true };
-            Object.assign(obj, album);
-            setPlayerContext(obj);
-          }
+        console.log("aquii", album);
+        if (album) {
+          let obj = { openModal: true };
+          Object.assign(obj, album);
+          setPlayerContext(obj);
         }
+      }
 
-        recognition.stop();
-      };
-
-      recognition.onaudioend = () => {
+      setTimeout(() => {
         setIsRecording(false);
-      };
-
-      recognition.start();
-    } catch (err) {
-      setIsRecording(false);
-    }
+        recognition.stop();
+      }, 500);
+    };
+    recognition.start();
   };
 
   return (
