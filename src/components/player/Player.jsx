@@ -12,16 +12,39 @@ import PlayerContext from "../../contex/Player";
 import "./player.css";
 
 const Player = () => {
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(90);
   const [playing, setPlaying] = useState(true);
+  const [indexMusic, setIndexMusic] = useState(0);
   const [playerContext, setPlayerContext] = useContext(PlayerContext);
 
-  const teste = e => {
+  const timeController = e => {
     const played = e.played * 100;
-    // if(played === 99){
-    //   next()
-    // }
+
+    if (played > 99.5) {
+      if (indexMusic + 1 >= playerContext.arrayUrl.length) {
+        setIndexMusic(0);
+      } else {
+        setIndexMusic(indexMusic + 1);
+      }
+    }
+
     setTime(played);
+  };
+
+  const nextMusic = () => {
+    console.log("indexMusic", indexMusic);
+    console.log("playerContext.arrayUrl.length", playerContext.arrayUrl.length);
+    if (indexMusic + 1 >= playerContext.arrayUrl.length) {
+      setIndexMusic(0);
+    } else {
+      setIndexMusic(indexMusic + 1);
+    }
+  };
+
+  const backMusic = () => {
+    if (indexMusic > 0) {
+      setIndexMusic(indexMusic - 1);
+    }
   };
 
   const closeModal = () => {
@@ -32,24 +55,21 @@ const Player = () => {
 
   const PrettoSlider = withStyles({
     root: {
-      color: "#8257e6",
-      height: 8,
+      color: "#8257e6 !important",
+      height: "8px !important",
     },
     thumb: {
-      height: 24,
-      width: 24,
-      backgroundColor: "#fff",
-      border: "2px solid currentColor",
-      marginTop: -8,
-      marginLeft: -12,
+      height: "18px !important",
+      width: "18px !important",
+      backgroundColor: "#fff !important",
+      border: "2px solid currentColor !important",
+      marginTop: "-5px !important",
+      marginLeft: "-12px !important",
       "&:focus, &:hover, &$active": {
         boxShadow: "inherit",
       },
     },
     active: {},
-    valueLabel: {
-      left: "calc(-50% + 4px)",
-    },
     track: {
       height: 8,
       borderRadius: 4,
@@ -71,17 +91,25 @@ const Player = () => {
           <h3>{playerContext.title ? playerContext.title : ""}</h3>
 
           <ButtonGroup disableElevation variant="contained">
-            <Button className="button-vol">{"<"}</Button>
+            <Button
+              className="button-vol"
+              onClick={backMusic}
+              disabled={!indexMusic}
+            >
+              {"<"}
+            </Button>
             <Button className="button-vol" onClick={() => setPlaying(!playing)}>
               {playing ? <PauseIcon /> : <PlayArrowIcon />}
             </Button>
-            <Button className="button-vol">{">"}</Button>
+            <Button className="button-vol" onClick={nextMusic}>
+              {">"}
+            </Button>
           </ButtonGroup>
         </div>
 
         <ReactPlayer
           className="react-player"
-          url={playerContext.url ? playerContext.url : ""}
+          url={playerContext.arrayUrl ? playerContext.arrayUrl[indexMusic] : ""}
           width="100%"
           height="100%"
           config={{
@@ -90,13 +118,15 @@ const Player = () => {
             },
           }}
           playing={playing}
-          onProgress={teste}
+          onProgress={timeController}
+          volume={0.1}
         />
 
         <PrettoSlider
-          valueLabelDisplay="auto"
           aria-label="pretto slider"
           defaultValue={time}
+          onChange={e => setTime(e.target.ariaValueNow)}
+          disabled
         />
       </div>
     </Dialog>
