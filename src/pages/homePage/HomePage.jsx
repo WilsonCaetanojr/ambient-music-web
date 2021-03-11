@@ -20,18 +20,39 @@ const HomePage = () => {
   const [albums, setAlbums] = useState([
     {
       title: "Pacific",
-      description: "Example music album",
-      url: "https://youtu.be/HJI6zufwXt0",
+      description: "Lofi beats instrumentais",
+      img:
+        "https://routenote.com/blog/wp-content/uploads/2019/09/pacific-cruisin-1280x720.jpg",
+      arrayUrl: [
+        "https://youtu.be/HJI6zufwXt0",
+        "https://youtu.be/a2XV6JvAa8Q",
+        "https://youtu.be/EZMKOO2oInQ",
+        "https://youtu.be/J-d05RnxhlE",
+      ],
     },
     {
-      title: "Sapo Louco",
-      description: "Example music album",
-      url: "https://youtu.be/k85mRPqvMbE",
+      title: "Roddy Ricch",
+      description: "Rapper e compositor norte-americano",
+      img:
+        "https://a10.gaanacdn.com/images/artists/16/1592716/crop_480x480_1592716.jpg",
+      arrayUrl: [
+        "https://youtu.be/CJOZc02VwJM",
+        "https://youtu.be/yYliDCjxBaI",
+        "https://youtu.be/jd-VdQNRUHs",
+        "https://youtu.be/FctI8l2KKw8",
+      ],
     },
     {
-      title: "Baiano",
-      description: "Example music album",
-      url: "https://youtu.be/kNdIA-L8E3c",
+      title: "Barões da pisadinha",
+      description: "Banda musical brasileira de forró eletrônico e tecnobrega",
+      img:
+        "https://pbs.twimg.com/profile_images/1353705250570596361/kbfgEyvF.jpg",
+      arrayUrl: [
+        "https://youtu.be/kNdIA-L8E3c",
+        "https://youtu.be/TCLGN6m6AMI",
+        "https://youtu.be/kNdIA-L8E3c",
+        "https://youtu.be/HF83nwsVmwY",
+      ],
     },
   ]);
   const [loading, setLoading] = useState(true);
@@ -62,14 +83,20 @@ const HomePage = () => {
           speechToText = speechToText[0].toUpperCase() + speechToText.substr(1);
 
           const album = albums.find(
-            a => a.title.toLowerCase() === speechToText.toLowerCase()
+            a =>
+              a.title.toLowerCase().indexOf(speechToText.toLowerCase()) !== -1
           );
-          notify(speechToText, true, "info");
 
           if (album) {
+            notify(album.title, true, "info");
+
             let obj = { openModal: true };
             Object.assign(obj, album);
             setPlayerContext(obj);
+          } else {
+            notify("Álbum não encontrado.");
+            const audioAlbumNotFound = new Audio("./audios/albumNotFound.mp3");
+            audioAlbumNotFound.play();
           }
         }
 
