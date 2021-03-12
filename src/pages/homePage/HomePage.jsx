@@ -50,7 +50,7 @@ const HomePage = () => {
       arrayUrl: [
         "https://youtu.be/kNdIA-L8E3c",
         "https://youtu.be/TCLGN6m6AMI",
-        "https://youtu.be/kNdIA-L8E3c",
+        "https://youtu.be/saViw05xftI",
         "https://youtu.be/HF83nwsVmwY",
       ],
     },

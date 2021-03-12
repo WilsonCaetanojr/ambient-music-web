@@ -37,8 +37,6 @@ const Player = () => {
   };
 
   const nextMusic = () => {
-    console.log("indexMusic", indexMusic);
-    console.log("playerContext.arrayUrl.length", playerContext.arrayUrl.length);
     if (indexMusic + 1 >= playerContext.arrayUrl.length) {
       setIndexMusic(0);
     } else {
