@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Dialog } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
@@ -10,12 +10,17 @@ import PauseIcon from "@material-ui/icons/Pause";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PlayerContext from "../../contex/Player";
 import "./player.css";
+import notify from "../../utils/notify";
 
 const Player = () => {
-  const [time, setTime] = useState(90);
+  const [time, setTime] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [indexMusic, setIndexMusic] = useState(0);
   const [playerContext, setPlayerContext] = useContext(PlayerContext);
+
+  useEffect(() => {
+    setPlaying(true);
+  }, [playerContext]);
 
   const timeController = e => {
     const played = e.played * 100;
@@ -110,13 +115,13 @@ const Player = () => {
         <ReactPlayer
           className="react-player"
           url={playerContext.arrayUrl ? playerContext.arrayUrl[indexMusic] : ""}
+          onPause={() => setPlaying(false)}
+          onPlay={() => setPlaying(true)}
+          onError={() => notify("Não foi possível reproduzir a mídia.")}
           width="100%"
           height="100%"
-          config={{
-            youtube: {
-              playerVars: { showinfo: 1 },
-            },
-          }}
+          controls={false}
+          pip={false}
           playing={playing}
           onProgress={timeController}
           volume={0.1}

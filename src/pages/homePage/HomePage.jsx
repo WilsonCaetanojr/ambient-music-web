@@ -31,7 +31,7 @@ const HomePage = () => {
       ],
     },
     {
-      title: "Roddy Ricch",
+      title: "Rapper Roddy Ricch",
       description: "Rapper e compositor norte-americano",
       img:
         "https://a10.gaanacdn.com/images/artists/16/1592716/crop_480x480_1592716.jpg",
