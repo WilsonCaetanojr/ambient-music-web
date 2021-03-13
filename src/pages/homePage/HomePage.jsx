@@ -36,10 +36,10 @@ const HomePage = () => {
       img:
         "https://a10.gaanacdn.com/images/artists/16/1592716/crop_480x480_1592716.jpg",
       arrayUrl: [
-        "https://youtu.be/CJOZc02VwJM",
         "https://youtu.be/yYliDCjxBaI",
-        "https://youtu.be/jd-VdQNRUHs",
+        "https://youtu.be/YS0h2-hy9rw",
         "https://youtu.be/FctI8l2KKw8",
+        "https://youtu.be/CJOZc02VwJM",
       ],
     },
     {

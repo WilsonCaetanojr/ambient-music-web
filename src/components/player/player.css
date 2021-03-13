@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-.container-vol {
+.container-actions-buttons {
   width: 98%;
   display: flex;
   flex-direction: row;
@@ -17,11 +17,16 @@
   margin-bottom: 10px;
 }
 
-.container-vol .button-vol {
+.container-actions-buttons .button-action {
   background-color: #141416;
   color: white;
 }
 
-.container-vol .button-vol:hover {
+.container-actions-buttons .button-action:hover {
   background-color: #3f3f3f;
+}
+
+.container-vol {
+  width: 45%;
+  margin-right: 11px
 }

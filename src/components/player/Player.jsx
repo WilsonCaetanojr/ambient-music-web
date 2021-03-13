@@ -1,25 +1,33 @@
 import { useContext, useEffect, useState } from "react";
-import { Dialog } from "@material-ui/core";
+import { Dialog, ButtonGroup, Slider, Button, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import Slider from "@material-ui/core/Slider";
 import ReactPlayer from "react-player/lazy";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Button from "@material-ui/core/Button";
 import ClearIcon from "@material-ui/icons/Clear";
 import PauseIcon from "@material-ui/icons/Pause";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PlayerContext from "../../contex/Player";
+import VolumeDown from "@material-ui/icons/VolumeDown";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
+import VolumeUp from "@material-ui/icons/VolumeUp";
 import "./player.css";
 import notify from "../../utils/notify";
 
 const Player = () => {
   const [time, setTime] = useState(0);
   const [playing, setPlaying] = useState(true);
+  const [volume, setVolume] = useState(100);
+  const [volumeMuted, setVolumeMuted] = useState(false);
   const [indexMusic, setIndexMusic] = useState(0);
   const [playerContext, setPlayerContext] = useContext(PlayerContext);
 
+  const handleChangeVol = (event, newValue) => {
+    setVolume(newValue);
+    setVolumeMuted(newValue === 0 ? true : false);
+  };
+
   useEffect(() => {
     setPlaying(true);
+    setIndexMusic(0);
   }, [playerContext]);
 
   const timeController = e => {
@@ -88,23 +96,52 @@ const Player = () => {
       <div className="container-player">
         <div className="container-close">
           <ClearIcon className="button-close" onClick={closeModal} />
+          <div className="container-vol ">
+            <Grid container spacing={2}>
+              <Grid item>
+                {volumeMuted ? (
+                  <VolumeOffIcon onClick={() => setVolumeMuted(false)} />
+                ) : (
+                  <>
+                    {volume <= 50 ? (
+                      <VolumeDown onClick={() => setVolumeMuted(true)} />
+                    ) : (
+                      <VolumeUp onClick={() => setVolumeMuted(true)} />
+                    )}
+                  </>
+                )}
+              </Grid>
+              <Grid item xs>
+                <Slider
+                  value={volume}
+                  onChange={handleChangeVol}
+                  aria-labelledby="continuous-slider"
+                  max={100}
+                  min={0}
+                />
+              </Grid>
+            </Grid>
+          </div>
         </div>
 
-        <div className="container-vol">
+        <div className="container-actions-buttons">
           <h3>{playerContext.title ? playerContext.title : ""}</h3>
 
           <ButtonGroup disableElevation variant="contained">
             <Button
-              className="button-vol"
+              className="button-action"
               onClick={backMusic}
               disabled={!indexMusic}
             >
               {"<"}
             </Button>
-            <Button className="button-vol" onClick={() => setPlaying(!playing)}>
+            <Button
+              className="button-action"
+              onClick={() => setPlaying(!playing)}
+            >
               {playing ? <PauseIcon /> : <PlayArrowIcon />}
             </Button>
-            <Button className="button-vol" onClick={nextMusic}>
+            <Button className="button-action" onClick={nextMusic}>
               {">"}
             </Button>
           </ButtonGroup>
@@ -122,7 +159,8 @@ const Player = () => {
           pip={false}
           playing={playing}
           onProgress={timeController}
-          volume={0.1}
+          volume={volume / 100}
+          muted={volumeMuted}
         />
 
         <PrettoSlider

@@ -10,12 +10,13 @@
 .container-close .button-close {
   width: 30px !important;
   height: 30px !important;
+  border-radius: 5px;
+  transition: background 0.5s;
 }
 
 .container-close .button-close:hover {
   cursor: pointer;
-  border-radius: 20px;
-  background-color: #141416;
+  background: #141416;
   color: #ff004f;
 }
 
