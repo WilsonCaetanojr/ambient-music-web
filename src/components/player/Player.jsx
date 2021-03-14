@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Dialog, ButtonGroup, Slider, Button, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import ReactPlayer from "react-player/lazy";
@@ -19,6 +19,7 @@ const Player = () => {
   const [volumeMuted, setVolumeMuted] = useState(false);
   const [indexMusic, setIndexMusic] = useState(0);
   const [playerContext, setPlayerContext] = useContext(PlayerContext);
+  const refVideo = useRef(null);
 
   const handleChangeVol = (event, newValue) => {
     setVolume(newValue);
@@ -148,6 +149,7 @@ const Player = () => {
         </div>
 
         <ReactPlayer
+          ref={refVideo}
           className="react-player"
           url={playerContext.arrayUrl ? playerContext.arrayUrl[indexMusic] : ""}
           onPause={() => setPlaying(false)}
@@ -163,11 +165,21 @@ const Player = () => {
           muted={volumeMuted}
         />
 
-        <PrettoSlider
+        <Slider
           aria-label="pretto slider"
-          defaultValue={time}
-          onChange={e => setTime(e.target.ariaValueNow)}
-          disabled
+          value={
+            refVideo && refVideo.current
+              ? refVideo.current.getCurrentTime()
+              : time
+          }
+          onChange={(e, value) => {
+            setTime(value);
+            refVideo.current.seekTo(value);
+          }}
+          min={0}
+          max={
+            refVideo && refVideo.current ? refVideo.current.getDuration() : 100
+          }
         />
       </div>
     </Dialog>
