@@ -2,7 +2,7 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import PlayerContext from "../../contex/Player";
+import PlayerContext from "../../context/Player";
 import "./cardMusic.css";
 
 export default ({ albums }) => {

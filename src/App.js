@@ -1,6 +1,6 @@
 import Routes from "./routes";
 import { ToastContainer } from "react-toastify";
-import PlayerContext from "./contex/Player";
+import PlayerContext from "./context/Player";
 import "./styles/global.css";
 import { useState } from "react";
 import Player from "./components/player/Player";
