@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router-dom";
-import useStyle from "../../styles/useStyles/button";
 
 const NewAlbum = () => {
   const { goBack } = useHistory();
@@ -20,7 +19,6 @@ const NewAlbum = () => {
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState("");
   const [language, setLanguage] = useState("");
-  const classes = useStyle();
 
   const handleSelectImages = e => {
     if (!e.target.files[0]) return;
@@ -91,7 +89,7 @@ const NewAlbum = () => {
                 </FormControl>
 
                 <div className="container-button">
-                  <Button variant="contained" className={classes.root}>
+                  <Button variant="contained" className="buton-gradient">
                     Salvar
                   </Button>
                 </div>

@@ -11,14 +11,12 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import useStyle from "../../styles/useStyles/button";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { push } = useHistory();
-  const classes = useStyle();
 
   const handleSubmit = () => {
     push("homePage");
@@ -76,7 +74,7 @@ const Login = () => {
 
         <div className="container-button-login">
           <Button
-            className={classes.root}
+            className="buton-gradient"
             variant="contained"
             onClick={handleSubmit}
           >

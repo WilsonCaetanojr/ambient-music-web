@@ -13,7 +13,6 @@ import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import isEmail from "../../utils/isEmail";
-import useStyle from "../../styles/useStyles/button";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -22,7 +21,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
   const { push, goBack } = useHistory();
-  const classes = useStyle();
 
   const handleSubmit = () => {
     if (password !== confirmPassword) {
@@ -103,7 +101,7 @@ const Login = () => {
 
         <div className="container-button-login-register">
           <Button
-            className={classes.root}
+            className="buton-gradient"
             variant="contained"
             onClick={handleSubmit}
           >

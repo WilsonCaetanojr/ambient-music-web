@@ -3,13 +3,11 @@ import Avatar from "@material-ui/core/Avatar";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import Navbar from "../../components/navbar/Navbar";
 import { Input, InputLabel, FormControl, Button } from "@material-ui/core";
-import useStyle from "../../styles/useStyles/button";
 import "./myAccount.css";
 
 const MyAccount = () => {
   const [name, setName] = useState("Wilson Caetano");
   const [email, setEmail] = useState("wilsonjr_caetano@hotmail.com");
-  const classes = useStyle();
 
   return (
     <>
@@ -60,7 +58,7 @@ const MyAccount = () => {
               </FormControl>
 
               <div className="container-btn-account">
-                <Button variant="contained" className={classes.root}>
+                <Button variant="contained" className="buton-gradient">
                   Atualizar
                 </Button>
               </div>

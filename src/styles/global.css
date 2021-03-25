@@ -20,6 +20,23 @@
   color: #ff004f;
 }
 
+.buton-gradient {
+  background: linear-gradient(45deg, #ab6bfe 30%, #5a8bf6 90%);
+  border: 0px;
+  border-radius: 3px;
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+  color: white !important;
+  height: 48px;
+  width: 50%;
+  padding: 0 30px;
+  transition: font-size 0.3s !important;
+}
+.buton-gradient:hover {
+  background: linear-gradient(45deg, #8245d3 30%, #5a8bf6 90%);
+  font-size: 15.5px;
+}
+
+
 /* ----------------------------------------- */
 
 .wrapper {
