@@ -2,12 +2,12 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import PlayerContext from "../../context/Player";
+import { PlayerContext } from "../../context/PlayerContext";
 import "./cardMusic.css";
 
 export default ({ albums }) => {
   const { push } = useHistory();
-  const [, setPlayerContext] = useContext(PlayerContext);
+  const { setPlayerContext } = useContext(PlayerContext);
 
   const handlePlay = iten => {
     let obj = { openModal: true };

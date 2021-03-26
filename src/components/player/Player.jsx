@@ -5,7 +5,7 @@ import ReactPlayer from "react-player/lazy";
 import ClearIcon from "@material-ui/icons/Clear";
 import PauseIcon from "@material-ui/icons/Pause";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PlayerContext from "../../context/Player";
+import { PlayerContext } from "../../context/PlayerContext";
 import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 import VolumeUp from "@material-ui/icons/VolumeUp";
@@ -18,8 +18,10 @@ const Player = () => {
   const [volume, setVolume] = useState(100);
   const [volumeMuted, setVolumeMuted] = useState(false);
   const [indexMusic, setIndexMusic] = useState(0);
-  const [playerContext, setPlayerContext] = useContext(PlayerContext);
+  const { playerContext, setPlayerContext } = useContext(PlayerContext);
   const refVideo = useRef(null);
+
+  console.log(playerContext);
 
   const handleChangeVol = (event, newValue) => {
     setVolume(newValue);

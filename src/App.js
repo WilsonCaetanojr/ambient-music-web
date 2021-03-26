@@ -1,19 +1,19 @@
 import Routes from "./routes";
 import { ToastContainer } from "react-toastify";
-import PlayerContext from "./context/Player";
+import { PlayerContextProvider } from "./context/PlayerContext";
 import "./styles/global.css";
-import { useState } from "react";
 import Player from "./components/player/Player";
+import React from "react";
 
 function App() {
-  const [player, setPlayer] = useState({ openModal: false });
-
   return (
-    <PlayerContext.Provider value={[player, setPlayer]}>
-      <Routes />
+    <React.Fragment>
+      <PlayerContextProvider>
+        <Routes />
+        <Player />
+      </PlayerContextProvider>
       <ToastContainer />
-      <Player />
-    </PlayerContext.Provider>
+    </React.Fragment>
   );
 }
 
