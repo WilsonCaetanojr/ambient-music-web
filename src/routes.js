@@ -4,7 +4,7 @@ import HomePage from "./pages/homePage/HomePage";
 import NewAlbum from "./pages/newAlbum/NewAlbum";
 import EditAlbum from "./pages/editAlbum/EditAlbum";
 import Login from "./pages/login/Login";
-import Register from "./pages/Register/Register";
+import Register from "./pages/register/Register";
 import MyAccount from "./pages/myAccount/MyAccount";
 
 const Routes = () => (
