@@ -13,7 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import isEmail from "../../utils/isEmail";
 
-const Login = () => {
+const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -111,4 +111,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Register;
