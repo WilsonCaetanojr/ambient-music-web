@@ -1,17 +1,23 @@
-import Routes from "./routes";
+import React from "react";
 import { ToastContainer } from "react-toastify";
+import Routes from "./routes";
 import { PlayerContextProvider } from "./context/PlayerContext";
+import { UserContextProvider } from "./context/UserContext";
 import "./styles/global.css";
 import Player from "./components/player/Player";
-import React from "react";
+import api from "./services/api";
 
 function App() {
+  api.setHeaders();
+
   return (
     <React.Fragment>
-      <PlayerContextProvider>
-        <Routes />
-        <Player />
-      </PlayerContextProvider>
+      <UserContextProvider>
+        <PlayerContextProvider>
+          <Routes />
+          <Player />
+        </PlayerContextProvider>
+      </UserContextProvider>
       <ToastContainer />
     </React.Fragment>
   );

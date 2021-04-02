@@ -6,14 +6,14 @@ import Navbar from "../../components/navbar/Navbar";
 import CardMusic from "../../components/cardMusic/CardMusic";
 import Loading from "../../components/loading/Loading";
 import notify from "../../utils/notify";
-import PlayerContext from "../../contex/Player";
+import { PlayerContext } from "../../context/PlayerContext";
 import "./homePage.css";
 
 // Configuration recognition
 window.SpeechRecognition =
   window.webkitSpeechRecognition || window.SpeechRecognition;
 const recognition = new window.SpeechRecognition();
-recognition.lang = "pt-BR";
+// recognition.lang = "pt-BR";
 recognition.continuous = true;
 
 const HomePage = () => {
@@ -57,7 +57,7 @@ const HomePage = () => {
   ]);
   const [loading, setLoading] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
-  const [, setPlayerContext] = useContext(PlayerContext);
+  const { setPlayerContext } = useContext(PlayerContext);
 
   useEffect(() => {
     setTimeout(function () {
