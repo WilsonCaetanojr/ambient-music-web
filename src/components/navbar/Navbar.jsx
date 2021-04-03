@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,6 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Avatar from "@material-ui/core/Avatar";
 import "./navbar.css";
+import { UserContext } from "../../context/UserContext";
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 export default function MenuAppBar() {
   const { push } = useHistory();
   const classes = useStyles();
+  const { user, logoutUser } = useContext(UserContext);
   const [anchorAvatar, setAnchorAvatar] = React.useState(null);
   const [anchorSide, setAnchorSide] = React.useState(null);
 
@@ -95,9 +97,9 @@ export default function MenuAppBar() {
                 className="avatar"
               >
                 <label className="labelAvatar">
-                  {"user" && "user.Nome"
-                    ? "Wilson".substring(0, 1).toUpperCase()
-                    : "A"}
+                  {user && user.Name
+                    ? user.Name.substring(0, 1).toUpperCase()
+                    : "-"}
                 </label>
               </Avatar>
             </IconButton>
@@ -114,7 +116,12 @@ export default function MenuAppBar() {
                 <img src="./icons/user.svg" className="icon-menu-list-side" />
                 Minha conta
               </MenuItem>
-              <MenuItem onClick={() => push("login")}>
+              <MenuItem
+                onClick={() => {
+                  logoutUser();
+                  push("login");
+                }}
+              >
                 <img src="./icons/logout.svg" className="icon-menu-list-side" />
                 Sair
               </MenuItem>
