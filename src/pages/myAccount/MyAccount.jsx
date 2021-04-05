@@ -1,17 +1,50 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import Navbar from "../../components/navbar/Navbar";
 import { Input, InputLabel, FormControl, Button } from "@material-ui/core";
+import { UserContext } from "../../context/UserContext";
+import Loading from "../../components/loading/Loading";
+import api from "../../services/api";
 import "./myAccount.css";
+import { changedValues } from "../../utils/changedValues";
 
 const MyAccount = () => {
-  const [name, setName] = useState("Wilson Caetano");
-  const [email, setEmail] = useState("wilsonjr_caetano@hotmail.com");
+  const { user, setUser } = useContext(UserContext);
+  const [name, setName] = useState(user.Name);
+  const [email, setEmail] = useState(user.Email);
+  const [initialState, setInitialState] = useState({
+    Name: user.Name,
+    Email: user.Email,
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+
+      const body = changedValues({
+        initial: initialState,
+        current: { Email: email, Name: name },
+      });
+
+      if (Object.keys(body).length < 1) return setLoading(false);
+
+      await api.put(`users/${user.Id}`, body);
+
+      setUser(body);
+      setInitialState(Object.assign(initialState, body));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <Navbar />
+      <Loading loading={loading} />
       <div className="profileContainer">
         <div className="containerFormUser">
           <div className="wrapper fadeInDown">
@@ -23,12 +56,12 @@ const MyAccount = () => {
                   className="avatar-my-account"
                 >
                   <label className="labelAvatar">
-                    {"user" && "user.Nome"
-                      ? "Wilson".substring(0, 1).toUpperCase()
-                      : "A"}
+                    {user && user.Name
+                      ? user.Name.substring(0, 1).toUpperCase()
+                      : "-"}
                   </label>
                 </Avatar>
-                <strong>Wilson Caetano</strong>
+                <strong>{user.Name}</strong>
                 <div>
                   <p>
                     <LibraryMusicIcon className="icon-album-my-account" />
@@ -58,7 +91,11 @@ const MyAccount = () => {
               </FormControl>
 
               <div className="container-btn-account">
-                <Button variant="contained" className="buton-gradient">
+                <Button
+                  variant="contained"
+                  className="buton-gradient"
+                  onClick={handleSubmit}
+                >
                   Atualizar
                 </Button>
               </div>
