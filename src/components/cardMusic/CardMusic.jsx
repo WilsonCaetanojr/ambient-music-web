@@ -10,9 +10,9 @@ export default ({ albums }) => {
   const { setPlayerContext } = useContext(PlayerContext);
 
   const handlePlay = iten => {
-    let obj = { openModal: true };
-    Object.assign(obj, iten);
-    setPlayerContext(obj);
+    setPlayerContext(
+      Object.assign({ openModal: true, playing: true, index: 0 }, iten)
+    );
   };
 
   return (

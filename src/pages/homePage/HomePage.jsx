@@ -18,7 +18,7 @@ recognition.continuous = true;
 
 const HomePage = () => {
   const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const { setPlayerContext } = useContext(PlayerContext);
 
@@ -64,9 +64,9 @@ const HomePage = () => {
           if (album) {
             notify(album.title, true, "info");
 
-            let obj = { openModal: true };
-            Object.assign(obj, album);
-            setPlayerContext(obj);
+            setPlayerContext(
+              Object.assign({ openModal: true, playing: true, index: 0 }, album)
+            );
           } else {
             console.log("Álbum não encontrado:", speechToText);
             notify("Álbum não encontrado.");
