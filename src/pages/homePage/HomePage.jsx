@@ -20,7 +20,8 @@ const HomePage = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const { setPlayerContext } = useContext(PlayerContext);
+  const { playerContext, setPlayerContext } = useContext(PlayerContext);
+  const [previousVolume, setPreviousVolume] = useState(playerContext.volume);
 
   useEffect(() => {
     const getData = async () => {
@@ -38,17 +39,25 @@ const HomePage = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    if (isRecording && playerContext.volume > 10) {
+      setPreviousVolume(playerContext.volume);
+      setPlayerContext({ volume: 10 });
+    } else {
+      setPlayerContext({ volume: previousVolume });
+    }
+  }, [isRecording]);
+
   const handleRecord = () => {
-    if (isRecording === true) return;
+    if (isRecording === true) {
+      recognition.stop();
+      setIsRecording(false);
+      return;
+    }
 
     try {
       setIsRecording(true);
 
-      window.SpeechRecognition =
-        window.webkitSpeechRecognition || window.SpeechRecognition;
-      var recognition = new window.SpeechRecognition();
-      recognition.lang = "pt-BR";
-      recognition.continuous = true;
       recognition.onresult = event => {
         let speechToText = event.results[event.resultIndex][0].transcript;
 
