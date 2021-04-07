@@ -1,6 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Dialog, ButtonGroup, Slider, Button, Grid } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import ReactPlayer from "react-player/lazy";
 import ClearIcon from "@material-ui/icons/Clear";
 import PauseIcon from "@material-ui/icons/Pause";
@@ -14,33 +13,24 @@ import notify from "../../utils/notify";
 
 const Player = () => {
   const [time, setTime] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [volume, setVolume] = useState(100);
   const [volumeMuted, setVolumeMuted] = useState(false);
-  const [indexMusic, setIndexMusic] = useState(0);
   const { playerContext, setPlayerContext } = useContext(PlayerContext);
   const refVideo = useRef(null);
 
   console.log(playerContext);
-
-  const handleChangeVol = (event, newValue) => {
-    setVolume(newValue);
-    setVolumeMuted(newValue === 0 ? true : false);
+  const handleChangeVol = (event, value) => {
+    setPlayerContext({ volume: value });
+    setVolumeMuted(value === 0 ? true : false);
   };
-
-  useEffect(() => {
-    setPlaying(true);
-    setIndexMusic(0);
-  }, [playerContext]);
 
   const timeController = e => {
     const played = e.played * 100;
 
     if (played > 99.5) {
-      if (indexMusic + 1 >= playerContext.arrayUrl.length) {
-        setIndexMusic(0);
+      if (playerContext.index + 1 >= playerContext.arrayUrl.length) {
+        setPlayerContext({ index: 0 });
       } else {
-        setIndexMusic(indexMusic + 1);
+        setPlayerContext({ index: playerContext.index + 1 });
       }
     }
 
@@ -48,51 +38,22 @@ const Player = () => {
   };
 
   const nextMusic = () => {
-    if (indexMusic + 1 >= playerContext.arrayUrl.length) {
-      setIndexMusic(0);
+    if (playerContext.index + 1 >= playerContext.arrayUrl.length) {
+      setPlayerContext({ index: 0 });
     } else {
-      setIndexMusic(indexMusic + 1);
+      setPlayerContext({ index: playerContext.index + 1 });
     }
   };
 
   const backMusic = () => {
-    if (indexMusic > 0) {
-      setIndexMusic(indexMusic - 1);
+    if (playerContext.index > 0) {
+      setPlayerContext({ index: playerContext.index - 1 });
     }
   };
 
   const closeModal = () => {
-    const copyContex = { ...playerContext };
-    copyContex.openModal = false;
-    setPlayerContext(copyContex);
+    setPlayerContext({ openModal: false });
   };
-
-  const PrettoSlider = withStyles({
-    root: {
-      color: "#8257e6 !important",
-      height: "8px !important",
-    },
-    thumb: {
-      height: "18px !important",
-      width: "18px !important",
-      backgroundColor: "#fff !important",
-      border: "2px solid currentColor !important",
-      marginTop: "-5px !important",
-      marginLeft: "-12px !important",
-      "&:focus, &:hover, &$active": {
-        boxShadow: "inherit",
-      },
-    },
-    active: {},
-    track: {
-      height: 8,
-      borderRadius: 4,
-    },
-    rail: {
-      height: 8,
-      borderRadius: 4,
-    },
-  })(Slider);
 
   return (
     <Dialog open={playerContext.openModal} disableBackdropClick={true}>
@@ -106,7 +67,7 @@ const Player = () => {
                   <VolumeOffIcon onClick={() => setVolumeMuted(false)} />
                 ) : (
                   <>
-                    {volume <= 50 ? (
+                    {playerContext.volume <= 50 ? (
                       <VolumeDown onClick={() => setVolumeMuted(true)} />
                     ) : (
                       <VolumeUp onClick={() => setVolumeMuted(true)} />
@@ -116,7 +77,7 @@ const Player = () => {
               </Grid>
               <Grid item xs>
                 <Slider
-                  value={volume}
+                  value={playerContext.volume}
                   onChange={handleChangeVol}
                   aria-labelledby="continuous-slider"
                   max={100}
@@ -134,15 +95,17 @@ const Player = () => {
             <Button
               className="button-action"
               onClick={backMusic}
-              disabled={!indexMusic}
+              disabled={!playerContext.index}
             >
               {"<"}
             </Button>
             <Button
               className="button-action"
-              onClick={() => setPlaying(!playing)}
+              onClick={() =>
+                setPlayerContext({ playing: !playerContext.playing })
+              }
             >
-              {playing ? <PauseIcon /> : <PlayArrowIcon />}
+              {playerContext.playing ? <PauseIcon /> : <PlayArrowIcon />}
             </Button>
             <Button className="button-action" onClick={nextMusic}>
               {">"}
@@ -153,17 +116,21 @@ const Player = () => {
         <ReactPlayer
           ref={refVideo}
           className="react-player"
-          url={playerContext.arrayUrl ? playerContext.arrayUrl[indexMusic] : ""}
-          onPause={() => setPlaying(false)}
-          onPlay={() => setPlaying(true)}
+          url={
+            playerContext.arrayUrl
+              ? playerContext.arrayUrl[playerContext.index]
+              : ""
+          }
+          onPause={() => setPlayerContext({ playing: false })}
+          onPlay={() => setPlayerContext({ playing: true })}
           onError={() => notify("Não foi possível reproduzir a mídia.")}
           width="100%"
           height="100%"
           controls={false}
           pip={false}
-          playing={playing}
+          playing={playerContext.playing}
           onProgress={timeController}
-          volume={volume / 100}
+          volume={playerContext.volume / 100}
           muted={volumeMuted}
         />
 
