@@ -16,9 +16,7 @@ const UserContextProvider = ({ children }) => {
 
     api.setHeaders(value);
 
-    const copyUser = { ...user };
-
-    setUser(Object.assign(copyUser, value));
+    setUser(value);
   };
 
   const logoutUser = () => {
