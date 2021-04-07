@@ -8,61 +8,34 @@ import Loading from "../../components/loading/Loading";
 import notify from "../../utils/notify";
 import { PlayerContext } from "../../context/PlayerContext";
 import "./homePage.css";
+import api from "../../services/api";
 
 // Configuration recognition
 window.SpeechRecognition =
   window.webkitSpeechRecognition || window.SpeechRecognition;
 const recognition = new window.SpeechRecognition();
-// recognition.lang = "pt-BR";
 recognition.continuous = true;
 
 const HomePage = () => {
-  const [albums, setAlbums] = useState([
-    {
-      title: "Pacific",
-      description: "Lofi beats instrumentais",
-      img:
-        "https://routenote.com/blog/wp-content/uploads/2019/09/pacific-cruisin-1280x720.jpg",
-      arrayUrl: [
-        "https://youtu.be/HJI6zufwXt0",
-        "https://youtu.be/a2XV6JvAa8Q",
-        "https://youtu.be/EZMKOO2oInQ",
-        "https://youtu.be/J-d05RnxhlE",
-      ],
-    },
-    {
-      title: "Rapper Roddy Ricch",
-      description: "Rapper e compositor norte-americano",
-      img:
-        "https://a10.gaanacdn.com/images/artists/16/1592716/crop_480x480_1592716.jpg",
-      arrayUrl: [
-        "https://youtu.be/yYliDCjxBaI",
-        "https://youtu.be/YS0h2-hy9rw",
-        "https://youtu.be/FctI8l2KKw8",
-        "https://youtu.be/CJOZc02VwJM",
-      ],
-    },
-    {
-      title: "Barões da pisadinha",
-      description: "Banda musical brasileira de forró eletrônico e tecnobrega",
-      img:
-        "https://pbs.twimg.com/profile_images/1353705250570596361/kbfgEyvF.jpg",
-      arrayUrl: [
-        "https://youtu.be/kNdIA-L8E3c",
-        "https://youtu.be/TCLGN6m6AMI",
-        "https://youtu.be/saViw05xftI",
-        "https://youtu.be/HF83nwsVmwY",
-      ],
-    },
-  ]);
+  const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const { setPlayerContext } = useContext(PlayerContext);
 
   useEffect(() => {
-    setTimeout(function () {
-      setLoading(false);
-    }, 1000);
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const { data } = await api.get("/albums");
+
+        setAlbums(data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    getData();
   }, []);
 
   const handleRecord = () => {
@@ -84,9 +57,10 @@ const HomePage = () => {
 
           const album = albums.find(
             a =>
-              a.title.toLowerCase().indexOf(speechToText.toLowerCase()) !== -1
+              a.title
+                .toLowerCase()
+                .indexOf(speechToText.toLowerCase().substr(0, 4)) !== -1
           );
-
           if (album) {
             notify(album.title, true, "info");
 
@@ -94,6 +68,7 @@ const HomePage = () => {
             Object.assign(obj, album);
             setPlayerContext(obj);
           } else {
+            console.log("Álbum não encontrado:", speechToText);
             notify("Álbum não encontrado.");
             const audioAlbumNotFound = new Audio("./audios/albumNotFound.mp3");
             audioAlbumNotFound.play();

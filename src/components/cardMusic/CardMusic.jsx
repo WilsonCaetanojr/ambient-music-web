@@ -19,6 +19,22 @@ export default ({ albums }) => {
     <>
       <section>
         <div className="container">
+          <div className="card">
+            <div className="description">
+              <AddCircleOutlineIcon
+                className="icon-add-card"
+                onClick={() => push("newAlbum")}
+              />
+
+              <div className="description-card"></div>
+            </div>
+            <ul className="sci">
+              <li>
+                <h3 className="new-album-text">NOVO ÁLBUM</h3>
+              </li>
+            </ul>
+          </div>
+
           {albums.map((iten, index) => (
             <div className="card" key={index}>
               <div className="description">
@@ -47,22 +63,6 @@ export default ({ albums }) => {
               </ul>
             </div>
           ))}
-
-          <div className="card">
-            <div className="description">
-              <AddCircleOutlineIcon
-                className="icon-add-card"
-                onClick={() => push("newAlbum")}
-              />
-
-              <div className="description-card"></div>
-            </div>
-            <ul className="sci">
-              <li>
-                <h3 className="new-album-text">NOVO ÁLBUM</h3>
-              </li>
-            </ul>
-          </div>
         </div>
       </section>
     </>
