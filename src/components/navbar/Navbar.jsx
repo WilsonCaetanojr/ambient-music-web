@@ -66,13 +66,13 @@ export default function MenuAppBar() {
             open={Boolean(anchorSide)}
             onClose={handleCloseSide}
           >
-            <MenuItem onClick={() => push("newAlbum")}>
+            <MenuItem onClick={() => push("newMusic")}>
               <img src="./icons/create.svg" className="icon-menu-list-side" />
-              Novo álbum
+              Novo música
             </MenuItem>
-            <MenuItem onClick={() => push("editAlbum")}>
+            <MenuItem onClick={() => push("editMusic")}>
               <img src="./icons/edit.svg" className="icon-menu-list-side" />
-              Editar álbum
+              Editar música
             </MenuItem>
           </Menu>
 
