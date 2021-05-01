@@ -21,7 +21,7 @@ const NewAlbum = () => {
   useEffect(() => {
     try {
       const getOptionsGenre = async () => {
-        const { data } = await api.get("");
+        const { data } = await api.get("/genres");
 
         setOptionGenre(data.data);
       };
@@ -94,7 +94,7 @@ const NewAlbum = () => {
 
                 <SelectInput
                   label="Gênero"
-                  keyObject="Id"
+                  keyObject="Name"
                   lg={3}
                   value={genre}
                   setValue={setGenre}

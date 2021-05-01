@@ -11,7 +11,7 @@ import notify from "../../utils/notify";
 const EditAlbum = () => {
   const { goBack } = useHistory();
   const [name, setName] = useState(null);
-  const [optionsName, setOptionsName] = useState(null);
+  const [optionsName, setOptionsName] = useState([]);
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
