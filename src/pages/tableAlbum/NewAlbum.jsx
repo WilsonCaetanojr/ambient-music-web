@@ -15,8 +15,10 @@ const NewAlbum = () => {
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState("");
   const [optionsGenre, setOptionGenre] = useState([]);
+  const [optionsMusics, setOptionMusics] = useState([]);
   const [genre, setGenre] = useState(null);
   const [intensity, setIntensity] = useState(null);
+  const [musicsSelects, setMusicsSelects] = useState([null]);
 
   useEffect(() => {
     try {
@@ -29,7 +31,22 @@ const NewAlbum = () => {
       getOptionsGenre();
     } catch (error) {
       setLoading(false);
-      console.log("useEffect NewAlbum ERROR", error);
+      console.log("useEffect genre NewAlbum ERROR", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const getOptionsMusics = async () => {
+        const { data } = await api.get("/musics");
+
+        setOptionMusics(data.data);
+      };
+
+      getOptionsMusics();
+    } catch (error) {
+      setLoading(false);
+      console.log("useEffect music NewAlbum ERROR", error);
     }
   }, []);
 
@@ -41,8 +58,9 @@ const NewAlbum = () => {
       await api.post("/albums", {
         Name: name,
         Description: description,
-        Genre: genre.Id,
+        IdGenre: genre.Id,
         Intensity: intensity.Id,
+        Musics: musicsSelects,
       });
 
       notify("Álbum cadastrado com sucesso", true, "info");
@@ -50,6 +68,7 @@ const NewAlbum = () => {
       setDescription("");
       setGenre(null);
       setIntensity(null);
+      setMusicsSelects([null]);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -116,6 +135,35 @@ const NewAlbum = () => {
                     { Id: "4" },
                   ]}
                 />
+
+                {musicsSelects.map((music, index) => (
+                  <SelectInput
+                    label={
+                      index === 0
+                        ? "Adicionar música"
+                        : "Adicionar outra música"
+                    }
+                    keyObject="Name"
+                    lg={3}
+                    value={musicsSelects[index]}
+                    onChange={value => {
+                      const copy = [...musicsSelects];
+
+                      if (!value && (index !== 0 || copy.length > 1)) {
+                        copy.splice(index, 1);
+                      } else {
+                        copy[index] = value;
+
+                        if (index === copy.length - 1) {
+                          copy[index + 1] = null;
+                        }
+                      }
+                      setMusicsSelects(copy);
+                    }}
+                    key={index}
+                    optionsList={optionsMusics}
+                  />
+                ))}
 
                 <div className="container-button">
                   <Button
