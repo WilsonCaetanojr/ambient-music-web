@@ -27,7 +27,7 @@ const Player = () => {
     const played = e.played * 100;
 
     if (played > 99.5) {
-      if (playerContext.index + 1 >= playerContext.arrayUrl.length) {
+      if (playerContext.index + 1 >= playerContext.Musics.length) {
         setPlayerContext({ index: 0 });
       } else {
         setPlayerContext({ index: playerContext.index + 1 });
@@ -38,7 +38,7 @@ const Player = () => {
   };
 
   const nextMusic = () => {
-    if (playerContext.index + 1 >= playerContext.arrayUrl.length) {
+    if (playerContext.index + 1 >= playerContext.Musics.length) {
       setPlayerContext({ index: 0 });
     } else {
       setPlayerContext({ index: playerContext.index + 1 });
@@ -89,7 +89,7 @@ const Player = () => {
         </div>
 
         <div className="container-actions-buttons">
-          <h3>{playerContext.title ? playerContext.title : ""}</h3>
+          <h3>{playerContext.Name ? playerContext.Name : ""}</h3>
 
           <ButtonGroup disableElevation variant="contained">
             <Button
@@ -117,8 +117,8 @@ const Player = () => {
           ref={refVideo}
           className="react-player"
           url={
-            playerContext.arrayUrl
-              ? playerContext.arrayUrl[playerContext.index]
+            playerContext.Musics && playerContext.Musics[playerContext.index]
+              ? playerContext.Musics[playerContext.index].Url
               : ""
           }
           onPause={() => setPlayerContext({ playing: false })}
