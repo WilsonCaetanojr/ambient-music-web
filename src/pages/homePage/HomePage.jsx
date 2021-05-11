@@ -29,7 +29,8 @@ const HomePage = () => {
         setLoading(true);
         const { data } = await api.get("/albums");
 
-        setAlbums(data);
+        console.log("RESULTADO", data);
+        setAlbums(data.data);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -66,12 +67,12 @@ const HomePage = () => {
 
           const album = albums.find(
             a =>
-              a.title
-                .toLowerCase()
-                .indexOf(speechToText.toLowerCase().substr(0, 4)) !== -1
+              a.Name.toLowerCase().indexOf(
+                speechToText.toLowerCase().substr(0, 4)
+              ) !== -1
           );
           if (album) {
-            notify(album.title, true, "info");
+            notify(album.Name, true, "info");
 
             setPlayerContext(
               Object.assign({ openModal: true, playing: true, index: 0 }, album)
