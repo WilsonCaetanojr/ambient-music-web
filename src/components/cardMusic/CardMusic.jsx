@@ -40,15 +40,15 @@ export default ({ albums }) => {
               <div className="description">
                 <div className="img">
                   <img
-                    src={iten.img || "./images/earphone.png"}
+                    src={iten.Image || "./images/earphone.png"}
                     alt={`logo-${index}`}
                   />
                 </div>
                 <div className="description-card">
                   <h3>
-                    {iten.title}
+                    {iten.Name}
                     <br />
-                    <span>{iten.description}</span>
+                    <span>{iten.Description}</span>
                   </h3>
                 </div>
               </div>
