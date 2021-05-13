@@ -6,8 +6,8 @@ const PlayerContextProvider = ({ children }) => {
   const [player, setPlayer] = useState({
     openModal: false,
     play: true,
-    title: "",
-    arrayUrl: [],
+    Name: "",
+    Musics: [],
     volume: 50,
     muted: false,
     index: 0,

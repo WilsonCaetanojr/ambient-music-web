@@ -26,7 +26,7 @@ const Player = () => {
   const timeController = e => {
     const played = e.played * 100;
 
-    if (played > 99.5) {
+    if (played > 98.5) {
       if (playerContext.index + 1 >= playerContext.Musics.length) {
         setPlayerContext({ index: 0 });
       } else {
