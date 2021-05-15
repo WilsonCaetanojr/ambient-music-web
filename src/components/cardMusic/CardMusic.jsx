@@ -2,6 +2,7 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { PlayerContext } from "../../context/PlayerContext";
 import "./cardMusic.css";
 
@@ -9,9 +10,9 @@ export default ({ albums }) => {
   const { push } = useHistory();
   const { setPlayerContext } = useContext(PlayerContext);
 
-  const handlePlay = iten => {
+  const handlePlay = item => {
     setPlayerContext(
-      Object.assign({ openModal: true, playing: true, index: 0 }, iten)
+      Object.assign({ openModal: true, playing: true, index: 0 }, item)
     );
   };
 
@@ -35,20 +36,20 @@ export default ({ albums }) => {
             </ul>
           </div>
 
-          {albums.map((iten, index) => (
+          {albums.map((item, index) => (
             <div className="card" key={index}>
               <div className="description">
                 <div className="img">
                   <img
-                    src={iten.Image || "./images/earphone.png"}
+                    src={item.Image || "./images/earphone.png"}
                     alt={`logo-${index}`}
                   />
                 </div>
                 <div className="description-card">
                   <h3>
-                    {iten.Name}
+                    {item.Name}
                     <br />
-                    <span>{iten.Description}</span>
+                    <span>{item.Description}</span>
                   </h3>
                 </div>
               </div>
@@ -57,7 +58,13 @@ export default ({ albums }) => {
                 <li>
                   <PlayCircleOutlineIcon
                     className="icon-play"
-                    onClick={() => handlePlay(iten)}
+                    onClick={() => handlePlay(item)}
+                  />
+                </li>
+                <li>
+                  <EditOutlinedIcon
+                    className="icon-edit"
+                    onClick={() => push("editAlbum", { Id: item.Id })}
                   />
                 </li>
               </ul>

@@ -132,6 +132,19 @@ section::after {
   color: white;
 }
 
+.icon-edit {
+  width: 40px !important;
+  height: 40px !important;
+  color: rgb(146, 146, 146);
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.icon-edit:hover {
+  color: white;
+}
+
+
 .new-album-text {
   color: #fff;
   text-transform: uppercase;
