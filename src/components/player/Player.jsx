@@ -89,8 +89,14 @@ const Player = () => {
         </div>
 
         <div className="container-actions-buttons">
-          <h3>{playerContext.Name ? playerContext.Name : ""}</h3>
-
+          <div>
+            <h3>{playerContext.Name ? playerContext.Name : ""}</h3>
+            <h5>
+              {playerContext.Musics && playerContext.Musics[playerContext.index]
+                ? playerContext.Musics[playerContext.index].Name.substr(0, 53)
+                : ""}
+            </h5>
+          </div>
           <ButtonGroup disableElevation variant="contained">
             <Button
               className="button-action"

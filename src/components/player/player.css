@@ -17,6 +17,11 @@
   margin-bottom: 10px;
 }
 
+.container-actions-buttons > :first-child {
+  display: grid;
+  width: 200px;
+}
+
 .container-actions-buttons .button-action {
   background-color: #141416;
   color: white;
