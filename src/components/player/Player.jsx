@@ -9,7 +9,7 @@ import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 import VolumeUp from "@material-ui/icons/VolumeUp";
 import "./player.css";
-import notify from "../../utils/notify";
+import { notify } from "../../utils/notify";
 
 const Player = () => {
   const [time, setTime] = useState(0);
@@ -17,7 +17,6 @@ const Player = () => {
   const { playerContext, setPlayerContext } = useContext(PlayerContext);
   const refVideo = useRef(null);
 
-  console.log(playerContext);
   const handleChangeVol = (event, value) => {
     setPlayerContext({ volume: value });
     setVolumeMuted(value === 0 ? true : false);
@@ -138,6 +137,7 @@ const Player = () => {
           onProgress={timeController}
           volume={playerContext.volume / 100}
           muted={volumeMuted}
+          // onEnded
         />
 
         <Slider
@@ -156,6 +156,13 @@ const Player = () => {
             refVideo && refVideo.current ? refVideo.current.getDuration() : 100
           }
         />
+
+        <h6>
+          Link:{" "}
+          {playerContext.Musics && playerContext.Musics[playerContext.index]
+            ? playerContext.Musics[playerContext.index].Url
+            : ""}
+        </h6>
       </div>
     </Dialog>
   );

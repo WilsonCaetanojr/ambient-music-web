@@ -5,8 +5,8 @@ import "./loading.css";
 const useStyles = makeStyles(theme => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: "#fff"
-  }
+    color: "#fff",
+  },
 }));
 
 const Loading = ({ loading = false }) => {
@@ -15,7 +15,7 @@ const Loading = ({ loading = false }) => {
   return (
     <Backdrop className={classes.backdrop} open={loading}>
       <div className="container-loading">
-        <img src="./images/loading.gif" />
+        <img src="./images/loading.gif" alt="loading" />
       </div>
     </Backdrop>
   );

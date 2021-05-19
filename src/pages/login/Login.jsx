@@ -13,7 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Loading from "../../components/loading/Loading";
 import { UserContext } from "../../context/UserContext";
-import api from "../../services/api";
+import { api } from "../../services/api";
 
 const Login = () => {
   const { setUser } = useContext(UserContext);
@@ -47,7 +47,7 @@ const Login = () => {
       <div className="full-screen">
         <div className="container-login">
           <div className="container-img">
-            <img src="./images/logoLogin.png" />
+            <img alt="logoLogin" src="./images/logoLogin.png" />
           </div>
 
           <div className="container-inputs">

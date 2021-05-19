@@ -67,16 +67,25 @@ export default function MenuAppBar() {
             onClose={handleCloseSide}
           >
             <MenuItem onClick={() => push("newMusic")}>
-              <img src="./icons/create.svg" className="icon-menu-list-side" />
+              <img
+                alt="create"
+                src="./icons/create.svg"
+                className="icon-menu-list-side"
+              />
               Novo música
             </MenuItem>
             <MenuItem onClick={() => push("editMusic")}>
-              <img src="./icons/edit.svg" className="icon-menu-list-side" />
+              <img
+                alt="edit"
+                src="./icons/edit.svg"
+                className="icon-menu-list-side"
+              />
               Editar música
             </MenuItem>
           </Menu>
 
           <img
+            alt="logoNav"
             src="./images/logoNav.png"
             className="logo-nav"
             onClick={() => push("homePage")}
@@ -113,7 +122,11 @@ export default function MenuAppBar() {
               onClose={handleCloseAvatar}
             >
               <MenuItem onClick={() => push("myAccount")}>
-                <img src="./icons/user.svg" className="icon-menu-list-side" />
+                <img
+                  alt="user"
+                  src="./icons/user.svg"
+                  className="icon-menu-list-side"
+                />
                 Minha conta
               </MenuItem>
               <MenuItem
@@ -122,7 +135,11 @@ export default function MenuAppBar() {
                   push("login");
                 }}
               >
-                <img src="./icons/logout.svg" className="icon-menu-list-side" />
+                <img
+                  alt="logout"
+                  src="./icons/logout.svg"
+                  className="icon-menu-list-side"
+                />
                 Sair
               </MenuItem>
             </Menu>

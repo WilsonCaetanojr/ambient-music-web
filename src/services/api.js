@@ -1,5 +1,5 @@
 import axios from "axios";
-import notify from "./../utils/notify";
+import { notify } from "./../utils/notify";
 
 const defaultErrorMessages = {
   503: "Não foi possível esabelecer uma conexão com o servidor. Verifique sua internet e tente novamente.",
@@ -99,7 +99,7 @@ function setHeaders(value = {}) {
     value.Token || sessionStorage.Token || null;
 }
 
-export default {
+export const api = {
   get: axios.get,
   post: axios.post,
   put: axios.put,

@@ -1,7 +1,9 @@
 .preview-img {
   margin-left: 10px;
-  width: 50px;
+  width: 70px;
+  height: 70px;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
 .row-container-edit {
@@ -24,3 +26,39 @@
 .container-button {
   margin-top: 20px;
 }
+
+.preview {
+  width: 65px;
+  height: 65px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.label-upload{
+  cursor: pointer;
+  color: #2c2c2c;
+  font-size: 18px;
+  background-color: #eeeeee;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.input-file{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow:  hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.remove-file{
+  cursor: pointer;
+  margin-left: 10px;
+  color: #2c2c2c;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 18px;
+  background-color: #f16451;
+}
+

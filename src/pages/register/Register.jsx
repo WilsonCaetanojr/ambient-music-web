@@ -12,8 +12,8 @@ import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import isEmail from "../../utils/isEmail";
-import notify from "../../utils/notify";
-import api from "../../services/api";
+import { notify } from "../../utils/notify";
+import { api } from "../../services/api";
 import Loading from "../../components/loading/Loading";
 
 const Register = () => {
@@ -70,7 +70,7 @@ const Register = () => {
         <div className="container-login-register">
           <div className="container-header-register">
             <ArrowBackIcon className="iconGoBack" onClick={goBack} />
-            <img src="./images/logoLogin.png" />
+            <img alt="logoLogin" src="./images/logoLogin.png" />
           </div>
           <div className="container-inputs-register">
             <TextField

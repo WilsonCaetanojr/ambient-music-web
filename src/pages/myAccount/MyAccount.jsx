@@ -5,7 +5,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { Input, InputLabel, FormControl, Button } from "@material-ui/core";
 import { UserContext } from "../../context/UserContext";
 import Loading from "../../components/loading/Loading";
-import api from "../../services/api";
+import { api } from "../../services/api";
 import "./myAccount.css";
 import { changedValues } from "../../utils/changedValues";
 

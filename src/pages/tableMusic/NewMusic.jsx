@@ -4,9 +4,9 @@ import { Input, InputLabel, FormControl, Button } from "@material-ui/core";
 import Navbar from "../../components/navbar/Navbar";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Loading from "../../components/loading/Loading";
-import api from "../../services/api";
+import { api } from "../../services/api";
 import "./newMusic.css";
-import notify from "../../utils/notify";
+import { notify } from "../../utils/notify";
 
 const NewAlbum = () => {
   const { goBack } = useHistory();

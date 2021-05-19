@@ -6,7 +6,7 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { PlayerContext } from "../../context/PlayerContext";
 import "./cardMusic.css";
 
-export default ({ albums }) => {
+const CardMusic = ({ albums }) => {
   const { push } = useHistory();
   const { setPlayerContext } = useContext(PlayerContext);
 
@@ -31,7 +31,7 @@ export default ({ albums }) => {
             </div>
             <ul className="sci">
               <li>
-                <h3 className="new-album-text">NOVO ÁLBUM</h3>
+                <h3 className="new-album-text">NOVO TEMA</h3>
               </li>
             </ul>
           </div>
@@ -75,3 +75,5 @@ export default ({ albums }) => {
     </>
   );
 };
+
+export default CardMusic;

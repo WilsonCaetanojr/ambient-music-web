@@ -5,10 +5,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Navbar from "../../components/navbar/Navbar";
 import CardMusic from "../../components/cardMusic/CardMusic";
 import Loading from "../../components/loading/Loading";
-import notify from "../../utils/notify";
+import { notify } from "../../utils/notify";
 import { PlayerContext } from "../../context/PlayerContext";
 import "./homePage.css";
-import api from "../../services/api";
+import { api } from "../../services/api";
 
 // Configuration recognition
 window.SpeechRecognition =
@@ -29,7 +29,6 @@ const HomePage = () => {
         setLoading(true);
         const { data } = await api.get("/albums");
 
-        console.log("RESULTADO", data);
         setAlbums(data.data);
         setLoading(false);
       } catch (error) {
@@ -40,24 +39,25 @@ const HomePage = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    if (isRecording && playerContext.volume > 10) {
+  const handleChangeIsRecording = value => {
+    setIsRecording(value);
+    if (value && playerContext.volume > 10) {
       setPreviousVolume(playerContext.volume);
       setPlayerContext({ volume: 10 });
     } else {
       setPlayerContext({ volume: previousVolume });
     }
-  }, [isRecording]);
+  };
 
   const handleRecord = () => {
     if (isRecording === true) {
       recognition.stop();
-      setIsRecording(false);
+      handleChangeIsRecording(false);
       return;
     }
 
     try {
-      setIsRecording(true);
+      handleChangeIsRecording(true);
 
       recognition.onresult = event => {
         let speechToText = event.results[event.resultIndex][0].transcript;
@@ -79,8 +79,8 @@ const HomePage = () => {
             );
           } else {
             console.log("Álbum não encontrado:", speechToText);
-            notify("Álbum não encontrado.");
-            const audioAlbumNotFound = new Audio("./audios/albumNotFound.mp3");
+            notify("Tema não encontrado.");
+            const audioAlbumNotFound = new Audio("./audios/themeNotFound.mp3");
             audioAlbumNotFound.play();
           }
         }
@@ -89,12 +89,12 @@ const HomePage = () => {
       };
 
       recognition.onaudioend = () => {
-        setIsRecording(false);
+        handleChangeIsRecording(false);
       };
 
       recognition.start();
     } catch (err) {
-      setIsRecording(false);
+      handleChangeIsRecording(false);
     }
   };
 
@@ -105,10 +105,14 @@ const HomePage = () => {
         <Loading loading={loading} />
         <CardMusic albums={albums} />
 
-        <Tooltip title="Diga qual álbum deseja ouvir.">
+        <Tooltip title="Diga qual tema deseja ouvir.">
           <Fab className="float-action" onClick={handleRecord}>
             {isRecording ? (
-              <img src="./icons/recording.gif" className="img-recording" />
+              <img
+                alt="recording"
+                src="./icons/recording.gif"
+                className="img-recording"
+              />
             ) : (
               <MicNoneIcon className="float-action-icon" />
             )}

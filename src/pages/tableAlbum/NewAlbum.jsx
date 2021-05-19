@@ -5,35 +5,22 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router-dom";
 import Loading from "../../components/loading/Loading";
 import SelectInput from "../../components/basic/SelectInput";
-import api from "../../services/api";
-import notify from "../../utils/notify";
+import { api } from "../../services/api";
+import { notify } from "../../utils/notify";
+import validTypeFile from "../../utils/validTypeFile";
 import "./album.css";
+import getBase64 from "../../utils/getBase64";
 
 const NewAlbum = () => {
   const { goBack } = useHistory();
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState("");
-  const [optionsGenre, setOptionGenre] = useState([]);
   const [optionsMusics, setOptionMusics] = useState([]);
-  const [genre, setGenre] = useState(null);
   const [intensity, setIntensity] = useState(null);
   const [musicsSelects, setMusicsSelects] = useState([null]);
-
-  useEffect(() => {
-    try {
-      const getOptionsGenre = async () => {
-        const { data } = await api.get("/genres");
-
-        setOptionGenre(data.data);
-      };
-
-      getOptionsGenre();
-    } catch (error) {
-      setLoading(false);
-      console.log("useEffect genre NewAlbum ERROR", error);
-    }
-  }, []);
+  const [image, setImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState("");
 
   useEffect(() => {
     try {
@@ -50,23 +37,48 @@ const NewAlbum = () => {
     }
   }, []);
 
+  const handleSelectImages = e => {
+    if (!e.target.files[0]) return;
+
+    if (
+      !validTypeFile({
+        file: e.target.files[0],
+        types: ["png", "PNG", "jpg", "JPG", "jpeg", "JPEG"],
+      })
+    ) {
+      return notify("A imagem deve respeitar os formatos: PNG, JPEG ou JPG.");
+    }
+
+    if (e.target.files[0].size / 1024 / 1024 > 10) {
+      return notify("A imagem deve respeitar o tamanho máximo de 10 MB.");
+    }
+
+    setImage(e.target.files[0]);
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
+  };
+
   const handleSubmit = async e => {
     try {
       e.preventDefault();
       setLoading(true);
 
-      await api.post("/albums", {
+      const body = {
         Name: name,
         Description: description,
-        IdGenre: genre.Id,
         Intensity: intensity.Id,
         Musics: musicsSelects,
-      });
+      };
 
-      notify("Álbum cadastrado com sucesso", true, "info");
+      if (image) {
+        const base64 = await getBase64(image);
+        body.Image = base64 || null;
+      }
+
+      await api.post("/albums", body);
+
+      notify("Tema cadastrado com sucesso", true, "info");
       setName("");
       setDescription("");
-      setGenre(null);
       setIntensity(null);
       setMusicsSelects([null]);
       setLoading(false);
@@ -83,12 +95,57 @@ const NewAlbum = () => {
 
         <form onSubmit={handleSubmit}>
           {loading && <Loading loading={loading} />}
+
           <div className="containerFormUser">
             <div className="wrapper fadeInDown">
               <div id="formContent">
                 <div className="container-title">
                   <ArrowBackIcon className="iconGoBack" onClick={goBack} />
-                  <label className="title">Novo álbum</label>
+                  <label className="title">Novo tema</label>
+                </div>
+
+                <div
+                  style={{
+                    width: "100%",
+                    marginTop: "2%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                  }}
+                >
+                  {previewImage && previewImage !== "" && (
+                    <img
+                      alt="ImageAlbum"
+                      src={previewImage}
+                      className="preview"
+                    />
+                  )}
+                  <div>
+                    <label className="label-upload">
+                      {previewImage && previewImage.length > 1
+                        ? "Alterar"
+                        : "Adicionar imagem"}
+                      <input
+                        className="input-file"
+                        accept="image/png, image/jpeg, image/jpg,"
+                        type="file"
+                        name="image"
+                        onChange={handleSelectImages}
+                        value=""
+                      />
+                    </label>
+                    {previewImage && previewImage.length > 1 && (
+                      <label
+                        className="remove-file"
+                        onClick={() => {
+                          setImage(null);
+                          setPreviewImage(null);
+                        }}
+                      >
+                        Remover
+                      </label>
+                    )}
+                  </div>
                 </div>
 
                 <FormControl className="formControl" id="controlUser">
@@ -112,17 +169,7 @@ const NewAlbum = () => {
                 </FormControl>
 
                 <SelectInput
-                  label="Gênero"
-                  keyObject="Name"
-                  lg={3}
-                  value={genre}
-                  setValue={setGenre}
-                  key="select-genre"
-                  optionsList={optionsGenre}
-                />
-
-                <SelectInput
-                  label="Intencidade"
+                  label="Intensidade"
                   keyObject="Id"
                   lg={3}
                   value={intensity}

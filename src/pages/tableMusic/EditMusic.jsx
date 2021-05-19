@@ -5,8 +5,8 @@ import Navbar from "../../components/navbar/Navbar";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Loading from "../../components/loading/Loading";
 import SelectInput from "../../components/basic/SelectInput";
-import api from "../../services/api";
-import notify from "../../utils/notify";
+import { api } from "../../services/api";
+import { notify } from "../../utils/notify";
 
 const EditAlbum = () => {
   const { goBack } = useHistory();

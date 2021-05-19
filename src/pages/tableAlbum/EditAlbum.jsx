@@ -3,21 +3,21 @@ import Navbar from "../../components/navbar/Navbar";
 import { Input, InputLabel, FormControl, Button } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router-dom";
-import "./album.css";
-import api from "../../services/api";
+import { api } from "../../services/api";
 import SelectInput from "../../components/basic/SelectInput";
 import Loading from "../../components/loading/Loading";
+import { notify } from "../../utils/notify";
+import "./album.css";
 
 const EditAlbum = ({ location }) => {
   const { goBack } = useHistory();
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState("");
-  const [optionsGenre, setOptionGenre] = useState([]);
   const [optionsMusics, setOptionMusics] = useState([]);
-  const [genre, setGenre] = useState(null);
   const [intensity, setIntensity] = useState(null);
   const [musicsSelects, setMusicsSelects] = useState([null]);
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     const getOptionsMusics = async () => {
@@ -30,7 +30,7 @@ const EditAlbum = ({ location }) => {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.log("useEffect music NewAlbum ERROR", error);
+        console.log("useEffect music EditAlbum ERROR", error);
       }
     };
 
@@ -42,21 +42,14 @@ const EditAlbum = ({ location }) => {
       const getData = async () => {
         setLoading(true);
 
-        const { data: genres } = await api.get("/genres");
-
-        setOptionGenre(genres.data);
-
         const { data } = await api.get(`/albums/${location.state.Id}`);
 
         if (data.success) {
           const result = data.data[0];
           setName(result.Name);
+          setPreviewImage(result.Image);
           setDescription(result.Description);
           setIntensity({ Id: result.Intensity.toString() });
-
-          const genreSelect = genres.data.find(g => g.Id === result.IdGenre);
-          setGenre(genreSelect);
-
           const musics = result.Musics || [];
           musics.push(null);
           setMusicsSelects(musics);
@@ -68,11 +61,27 @@ const EditAlbum = ({ location }) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log("useEffect genre NewAlbum ERROR", error);
+      console.log("useEffect genre EditAlbum ERROR", error);
     }
-  }, []);
+  }, [location.state]);
 
-  const handleSubmit = async e => {};
+  const handleSubmit = async e => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+
+      await api.put(`/albums/${location.state.Id}`, {
+        Musics: musicsSelects,
+      });
+
+      notify("Tema editado com sucesso", true, "info");
+      goBack();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log("handleSubmit EditAlbum ERROR", error);
+    }
+  };
 
   return (
     <>
@@ -85,18 +94,20 @@ const EditAlbum = ({ location }) => {
               <div id="formContent">
                 <div className="container-title">
                   <ArrowBackIcon className="iconGoBack" onClick={goBack} />
-                  <label className="title">Editar álbum</label>
+                  <label className="title">Editar tema</label>
                 </div>
 
                 <div className="row-container-edit">
                   <img
-                    src="./images/interrogation.png"
+                    alt="interrogation"
+                    src={previewImage || "./images/interrogation.png"}
                     className="preview-img"
                   />
                 </div>
                 <FormControl className="formControl" id="controlUser">
                   <InputLabel>Nome</InputLabel>
                   <Input
+                    disabled
                     required
                     type="text"
                     value={name}
@@ -107,6 +118,7 @@ const EditAlbum = ({ location }) => {
                 <FormControl className="formControl" id="controlUser">
                   <InputLabel>Descrição</InputLabel>
                   <Input
+                    disabled
                     required
                     type="text"
                     value={description}
@@ -114,30 +126,15 @@ const EditAlbum = ({ location }) => {
                   />
                 </FormControl>
 
-                <SelectInput
-                  label="Gênero"
-                  keyObject="Name"
-                  lg={3}
-                  value={genre}
-                  setValue={setGenre}
-                  key="select-genre"
-                  optionsList={optionsGenre}
-                />
-
-                <SelectInput
-                  label="Intencidade"
-                  keyObject="Id"
-                  lg={3}
-                  value={intensity}
-                  setValue={setIntensity}
-                  key="select-intensity"
-                  optionsList={[
-                    { Id: "1" },
-                    { Id: "2" },
-                    { Id: "3" },
-                    { Id: "4" },
-                  ]}
-                />
+                <FormControl className="formControl" id="controlUser">
+                  <InputLabel>Intensidade</InputLabel>
+                  <Input
+                    disabled
+                    required
+                    type="text"
+                    value={intensity ? intensity.Id : "0"}
+                  />
+                </FormControl>
 
                 {musicsSelects.map((music, index) => (
                   <SelectInput
