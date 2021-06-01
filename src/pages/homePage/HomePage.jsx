@@ -41,17 +41,22 @@ const HomePage = () => {
 
   const handleChangeIsRecording = (value) => {
     setIsRecording(value);
-    if (value && playerContext.volume > 10) {
-      setPreviousVolume(playerContext.volume);
-      setPlayerContext({ volume: 10 });
-    } else {
-      setPlayerContext({ volume: previousVolume });
+    if (playerContext.openModal) {
+      if (value && playerContext.volume > 10) {
+        setPreviousVolume(playerContext.volume);
+        setPlayerContext({ volume: 10 });
+      } else {
+        setPlayerContext({
+          volume: previousVolume,
+        });
+      }
     }
   };
 
   const handleRecord = () => {
     if (isRecording === true) {
       recognition.stop();
+
       handleChangeIsRecording(false);
       return;
     }
@@ -67,9 +72,15 @@ const HomePage = () => {
 
           const album = albums.find(
             (a) =>
-              a.Name.toLowerCase().indexOf(
-                speechToText.toLowerCase().substr(0, 4)
-              ) !== -1
+              a.Name.normalize("NFD")
+                .toLowerCase()
+                .replace(/[^a-z0-9_]/g, "")
+                .indexOf(
+                  speechToText
+                    .normalize("NFD")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9_]/g, "")
+                ) !== -1
           );
           if (album) {
             notify(album.Name, true, "info");
