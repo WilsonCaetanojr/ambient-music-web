@@ -132,7 +132,7 @@ section::after {
   color: white;
 }
 
-.icon-edit {
+.icon-card {
   width: 40px !important;
   height: 40px !important;
   color: rgb(146, 146, 146);
@@ -140,7 +140,7 @@ section::after {
   margin-top: 5px;
 }
 
-.icon-edit:hover {
+.icon-card:hover {
   color: white;
 }
 

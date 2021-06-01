@@ -39,7 +39,7 @@ const HomePage = () => {
     getData();
   }, []);
 
-  const handleChangeIsRecording = value => {
+  const handleChangeIsRecording = (value) => {
     setIsRecording(value);
     if (value && playerContext.volume > 10) {
       setPreviousVolume(playerContext.volume);
@@ -59,14 +59,14 @@ const HomePage = () => {
     try {
       handleChangeIsRecording(true);
 
-      recognition.onresult = event => {
+      recognition.onresult = (event) => {
         let speechToText = event.results[event.resultIndex][0].transcript;
 
         if (speechToText) {
           speechToText = speechToText[0].toUpperCase() + speechToText.substr(1);
 
           const album = albums.find(
-            a =>
+            (a) =>
               a.Name.toLowerCase().indexOf(
                 speechToText.toLowerCase().substr(0, 4)
               ) !== -1
@@ -103,7 +103,7 @@ const HomePage = () => {
       <Navbar />
       <div className="container-home">
         <Loading loading={loading} />
-        <CardMusic albums={albums} />
+        <CardMusic albums={albums} setAlbums={setAlbums} />
 
         <Tooltip title="Diga qual tema deseja ouvir.">
           <Fab className="float-action" onClick={handleRecord}>
