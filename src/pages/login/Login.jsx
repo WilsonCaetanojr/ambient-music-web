@@ -54,7 +54,7 @@ const Login = () => {
             <TextField
               type="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               className="input-email"
               id="email"
               label="Email"
@@ -67,7 +67,7 @@ const Login = () => {
                 id="standard-adornment-password"
                 type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

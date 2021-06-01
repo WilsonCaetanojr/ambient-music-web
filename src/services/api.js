@@ -6,18 +6,18 @@ const defaultErrorMessages = {
 };
 
 axios.interceptors.response.use(
-  response => {
+  (response) => {
     if (
       response.status === 200 &&
       response.data.warnings &&
       Array.isArray(response.data.warnings)
     ) {
-      response.data.warnings.map(e => notify(e, true, "warning"));
+      response.data.warnings.map((e) => notify(e, true, "warning"));
     }
 
     return response;
   },
-  error => {
+  (error) => {
     //Erro de conexão
     if (error.message && error.message === "Network Error") {
       notify(
@@ -31,7 +31,7 @@ axios.interceptors.response.use(
       error.data.warnings &&
       Array.isArray(error.data.warnings)
     ) {
-      error.data.warnings.map(e => notify(e, true, "warning"));
+      error.data.warnings.map((e) => notify(e, true, "warning"));
     }
 
     if (
@@ -66,6 +66,7 @@ axios.interceptors.response.use(
 
       if (
         error.response.data &&
+        typeof error.response.data === "string" &&
         error.response.data.indexOf("File format not accepted") !== -1
       ) {
         notify(

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import Navbar from "../../components/navbar/Navbar";
@@ -13,11 +13,21 @@ const MyAccount = () => {
   const { user, setUser } = useContext(UserContext);
   const [name, setName] = useState(user.Name);
   const [email, setEmail] = useState(user.Email);
+  const [qtdAlbums, setQtdAlbums] = useState(0);
   const [initialState, setInitialState] = useState({
     Name: user.Name,
     Email: user.Email,
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getQtdAlbums = async () => {
+      const { data } = await api.get("/users/qtdalbums");
+      setQtdAlbums(data.data.QtdAlbums);
+    };
+
+    getQtdAlbums();
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -65,7 +75,8 @@ const MyAccount = () => {
                 <div>
                   <p>
                     <LibraryMusicIcon className="icon-album-my-account" />
-                    Você possui 33 álbuns
+                    Você possui {qtdAlbums} tema
+                    {qtdAlbums === 1 ? "" : "s"}
                   </p>
                 </div>
               </div>
@@ -76,7 +87,7 @@ const MyAccount = () => {
                   required
                   type="text"
                   value={name}
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </FormControl>
 
@@ -86,7 +97,7 @@ const MyAccount = () => {
                   required
                   type="email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </FormControl>
 
