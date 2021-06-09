@@ -37,7 +37,7 @@ const NewAlbum = () => {
     }
   }, []);
 
-  const handleSelectImages = e => {
+  const handleSelectImages = (e) => {
     if (!e.target.files[0]) return;
 
     if (
@@ -57,7 +57,7 @@ const NewAlbum = () => {
     setPreviewImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       setLoading(true);
@@ -154,7 +154,7 @@ const NewAlbum = () => {
                     required
                     type="text"
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </FormControl>
 
@@ -164,11 +164,12 @@ const NewAlbum = () => {
                     required
                     type="text"
                     value={description}
-                    onChange={e => setDescription(e.target.value)}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </FormControl>
 
                 <SelectInput
+                  required
                   label="Intensidade"
                   keyObject="Id"
                   lg={3}
@@ -193,7 +194,7 @@ const NewAlbum = () => {
                     keyObject="Name"
                     lg={3}
                     value={musicsSelects[index]}
-                    onChange={value => {
+                    onChange={(value) => {
                       const copy = [...musicsSelects];
 
                       if (!value && (index !== 0 || copy.length > 1)) {
