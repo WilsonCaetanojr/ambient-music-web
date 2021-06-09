@@ -5,8 +5,9 @@ import Navbar from "../../components/navbar/Navbar";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Loading from "../../components/loading/Loading";
 import { api } from "../../services/api";
-import "./newMusic.css";
 import { notify } from "../../utils/notify";
+import ReactPlayer from "react-player";
+import "./newMusic.css";
 
 const NewAlbum = () => {
   const { goBack } = useHistory();
@@ -14,10 +15,15 @@ const NewAlbum = () => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       setLoading(true);
+
+      if (!ReactPlayer.canPlay(url)) {
+        setLoading(false);
+        return notify("A URL informada é inválida.");
+      }
 
       await api.post("/musics", { Name: name, Url: url });
 
@@ -52,7 +58,7 @@ const NewAlbum = () => {
                     required
                     type="text"
                     value={name}
-                    onChange={e => setName(e.target.value.substr(0, 50))}
+                    onChange={(e) => setName(e.target.value.substr(0, 50))}
                   />
                 </FormControl>
 
@@ -62,7 +68,7 @@ const NewAlbum = () => {
                     required
                     type="text"
                     value={url}
-                    onChange={e => setUrl(e.target.value)}
+                    onChange={(e) => setUrl(e.target.value)}
                   />
                 </FormControl>
 

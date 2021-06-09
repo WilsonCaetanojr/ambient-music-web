@@ -7,6 +7,7 @@ import Loading from "../../components/loading/Loading";
 import SelectInput from "../../components/basic/SelectInput";
 import { api } from "../../services/api";
 import { notify } from "../../utils/notify";
+import ReactPlayer from "react-player";
 
 const EditAlbum = () => {
   const { goBack } = useHistory();
@@ -38,7 +39,7 @@ const EditAlbum = () => {
     getMusicsUser();
   }, []);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
@@ -54,11 +55,16 @@ const EditAlbum = () => {
         return notify("Não foi identificado alterações na URL.");
       }
 
+      if (!ReactPlayer.canPlay(url)) {
+        setLoading(false);
+        return notify("A URL informada é inválida.");
+      }
+
       const { data } = await api.put(`musics/${name.Id}`, { Url: url });
 
       if (data.success) notify("Música editada com sucesso.", true, "info");
 
-      const indexMusic = optionsName.findIndex(i => i.Id === name.Id);
+      const indexMusic = optionsName.findIndex((i) => i.Id === name.Id);
       const copy = [...optionsName];
       copy[indexMusic].Url = url;
 
@@ -101,7 +107,7 @@ const EditAlbum = () => {
                     required
                     type="text"
                     value={url}
-                    onChange={e => setUrl(e.target.value)}
+                    onChange={(e) => setUrl(e.target.value)}
                   />
                 </FormControl>
                 <div className="container-button">
