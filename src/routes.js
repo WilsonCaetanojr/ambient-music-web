@@ -21,11 +21,12 @@ const Routes = () => (
       <Authentication path="/newMusic" component={NewMusic} />
       <Authentication path="/editMusic" component={EditMusic} />
 
-      <Route path="/" component={Login} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
 
       <Authentication path="/myAccount" component={MyAccount} />
+
+      <Route path="/" component={Login} />
 
       <Redirect to="/login" />
     </Switch>
